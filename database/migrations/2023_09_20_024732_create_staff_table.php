@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('staff', function (Blueprint $table) {
             $table->timestamps();
             $table->integer('user_id')->primary();
-            $table->datetime('date_of_birth');
+            $table->string('name');
             $table->string('phone_number');
+            $table->datetime('date_of_birth');
+            $table->string('address');
         });
     }
 
