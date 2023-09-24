@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('user_id')->primary();
             $table->string('name');
             $table->string('phone_number');
-            $table->datetime('date_of_birth');
+            $table->date('date_of_birth');
             $table->string('address');
         });
     }
