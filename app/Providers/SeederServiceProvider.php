@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ServiceProvider;
 
-class DefaultAdminServiceProvider extends ServiceProvider
+class SeederServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -29,6 +29,20 @@ class DefaultAdminServiceProvider extends ServiceProvider
                 'password' => Hash::make('admin'),
                 'user_type' => 'admin',
                 'created_at' => $now,
+            ]);
+        }
+
+        if (DB::table('branches')->count() == 0) {
+            DB::table('branches')->insert([
+                'id' => 0,
+                'name' => 'Null Branch'
+            ]);
+        }
+
+        if (DB::table('staff_roles')->count() == 0) {
+            DB::table('staff_roles')->insert([
+                'id' => 0,
+                'name' => 'Null Role'
             ]);
         }
     }
