@@ -23,7 +23,7 @@ Route::prefix('auth')->group(function() {
     Route::post('login', [LoginController::class, 'authenticate'])->name('login');
 });
 
-Route::middleware('auth')->get('me', function () {
+Route::middleware('auth')->get('/', function () {
     return '<h1>Horeee</h1>';
 });
 
