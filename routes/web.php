@@ -30,6 +30,10 @@ Route::middleware('auth')->get('/', function () {
 Route::middleware('auth')
     ->prefix('admin/{branchId}')
     ->group(function () {
+        Route::get('', function(Request $request) {
+            $branchId = $request->route('branchId') ?? 0;
+            return redirect('admin/' . (string)$branchId . '/manage-staff');
+        });
         Route::get('add-staff', function (Request $request) {
             $branchId = $request->route('branchId');
             $dbRes = DB::table('branches')->select(['name'])->where('id', '=', $branchId)->get();
@@ -77,7 +81,24 @@ Route::middleware('auth')
                 'branch_id' => $branchId
             ]);
 
-            return redirect('/admin/' . $branchId);
+            return redirect('/admin/' . (string)$branchId);
+        });
+        Route::get('manage-staff', function (Request $request) {
+            $branchId = $request->route('branchId');
+
+            $staff = DB::table('staff')
+                ->selectRaw('staff.name, staff.phone_number, staff.date_of_birth, staff.address, staff_roles.name AS role_name')
+                ->where('branch_id', '=', $branchId)
+                ->join('staff_roles', 'id', '=', 'id')
+                ->get()
+                ->toArray();
+
+            return view('admin.manage-staff', [
+                'branchId' => $branchId,
+                'staffMembers' => array_map(function ($element) {
+                    return get_object_vars($element);
+                }, $staff),
+            ]);
         });
     }
 );
