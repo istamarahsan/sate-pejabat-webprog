@@ -19,8 +19,12 @@
                     <div>{{ $staff['date_of_birth'] }}</div>
                     <div>{{ $staff['phone_number'] }}</div>
                     <div class="grid grid-cols-2 col-span-2 gap-1">
-                        <button class="bg-black text-white px-3 py-1 rounded-xl">Edit</button>
-                        <form action="/admin/{{ $branchId }}/delete/{{ $staff['id'] }}" method="post">
+                        <a href="/admin/{{ $branchId }}/edit-staff/{{ $staff['id'] }}">
+                            <button type="button"
+                                class="bg-black text-white px-3 py-1 rounded-xl">Edit</button>
+                        </a>
+                        <form action="/admin/{{ $branchId }}/delete/{{ $staff['id'] }}"
+                            method="post">
                             @csrf
                             <button type="submit"
                                 class="bg-black text-white px-3 py-1 rounded-xl">Delete</button>
