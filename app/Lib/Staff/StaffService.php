@@ -13,10 +13,16 @@ class StaffService {
      * ][]
      */
     public function getStaffRoles(): array {
-        return DB::table('staff_roles')
+        $dbResult = DB::table('staff_roles')
             ->select(['id', 'name'])
             ->get()
             ->toArray();
+        return array_map(function ($e) {
+            return [
+                'id' => $e->id,
+                'name' => $e->name
+            ];
+        }, $dbResult);
     }
     /**
      * @return array [

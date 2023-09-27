@@ -2,27 +2,39 @@
     <form action="/admin/{{ $branch['id'] }}/add-staff" method="POST">
         @csrf
 
+        @error('fullName')
+        <span>waduh</span>
+        @enderror
         <div class="w-full grid grid-cols-2">
-            <label class="" for="full_name">Staff Name:</label>
-            <input type="text" id="full_name" name="full_name" required>
+            <label class="" for="fullName">Staff Name:</label>
+            <input type="text" id="fullName" name="fullName" required>
         </div>
         <br>
 
         <!-- Date of Birth -->
+        @error('dateOfBirth')
+        <span>waduh</span>
+        @enderror
         <div class="w-full grid grid-cols-2">
-            <label for="date_of_birth">Date of Birth:</label>
-            <input type="date" id="date_of_birth" name="date_of_birth" required>
+            <label for="dateOfBirth">Date of Birth:</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth" required>
         </div>
         <br>
 
         <!-- Phone Number -->
+        @error('phoneNumber')
+        <span>waduh</span>
+        @enderror
         <div class="w-full grid grid-cols-2">
-            <label for="phone_number">Phone Number:</label>
-            <input type="tel" id="phone_number" name="phone_number" required>
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" required>
         </div>
         <br>
 
         <!-- Address -->
+        @error('address')
+        <span>waduh</span>
+        @enderror
         <div class="w-full grid grid-cols-2">
             <label for="address">Address:</label>
             <textarea id="address" name="address" rows="4" required></textarea>
@@ -30,11 +42,14 @@
         <br>
 
         <!-- Staff Role -->
+        @error('roleId')
+        <span>waduh</span>
+        @enderror
         <div class="w-full grid grid-cols-2">
-            <label for="role">Staff Role:</label>
-            <select id="role" name="role" required>
+            <label for="roleId">Staff Role:</label>
+            <select id="roleId" name="roleId" required>
                 @foreach ($staffRoles as $role)
-                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                    <option value="{{ $role['id'] }}">{{ $role['name'] }}</option>
                 @endforeach
             </select>
         </div>
