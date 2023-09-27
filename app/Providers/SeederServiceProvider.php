@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -22,6 +23,10 @@ class SeederServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (App::runningInConsole()) {
+            return;
+        }
+
         if (DB::table('users')->where('user_type', 'admin')->count() == 0) {
             $now = Date::now();
             DB::table('users')->insert([
