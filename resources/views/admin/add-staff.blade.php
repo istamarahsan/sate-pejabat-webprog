@@ -7,7 +7,7 @@
             <input type="text" id="full_name" name="full_name" required>
         </div>
         <br>
-        
+
         <!-- Date of Birth -->
         <div class="w-full grid grid-cols-2">
             <label for="date_of_birth">Date of Birth:</label>
@@ -33,8 +33,8 @@
         <div class="w-full grid grid-cols-2">
             <label for="role">Staff Role:</label>
             <select id="role" name="role" required>
-                @foreach($staffRoles as $role)
-                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                @foreach ($staffRoles as $role)
+                    <option value="{{ $role->id }}">{{ $role->name }}</option>
                 @endforeach
             </select>
         </div>

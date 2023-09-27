@@ -87,7 +87,7 @@ Route::middleware('auth')
             $branchId = $request->route('branchId');
 
             $staff = DB::table('staff')
-                ->selectRaw('staff.name, staff.phone_number, staff.date_of_birth, staff.address, staff_roles.name AS role_name')
+                ->selectRaw('staff.user_id AS id, staff.name, staff.phone_number, staff.date_of_birth, staff.address, staff_roles.name AS role_name')
                 ->where('branch_id', '=', $branchId)
                 ->join('staff_roles', 'id', '=', 'id')
                 ->get()
@@ -99,6 +99,16 @@ Route::middleware('auth')
                     return get_object_vars($element);
                 }, $staff),
             ]);
+        });
+        Route::post('delete/{staffId}', function (Request $request) {
+            $branchId = $request->route('branchId');
+            $staffUserId = $request->route('staffId');
+
+            DB::table('staff')
+                ->where('user_id', '=', $staffUserId)
+                ->delete();
+                
+            return redirect('admin/' . $branchId);
         });
     }
 );
