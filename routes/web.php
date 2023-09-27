@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Staff\ManageStaffController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -83,23 +84,7 @@ Route::middleware('auth')
 
             return redirect('admin/' . (string)$branchId);
         });
-        Route::get('manage-staff', function (Request $request) {
-            $branchId = $request->route('branchId');
-
-            $staff = DB::table('staff')
-                ->selectRaw('staff.user_id AS id, staff.name, staff.phone_number, staff.date_of_birth, staff.address, staff_roles.name AS role_name')
-                ->where('branch_id', '=', $branchId)
-                ->join('staff_roles', 'id', '=', 'id')
-                ->get()
-                ->toArray();
-
-            return view('admin.manage-staff', [
-                'branchId' => $branchId,
-                'staffMembers' => array_map(function ($element) {
-                    return get_object_vars($element);
-                }, $staff),
-            ]);
-        });
+        Route::get('manage-staff', [ManageStaffController::class, 'get']);
         Route::post('delete/{staffId}', function (Request $request) {
             $branchId = $request->route('branchId');
             $staffUserId = $request->route('staffId');

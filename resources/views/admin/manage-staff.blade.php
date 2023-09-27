@@ -15,9 +15,9 @@
             @foreach ($staffMembers as $staff)
                 <div class="grid grid-cols-6 gap-5 my-2">
                     <div>{{ $staff['name'] }}</div>
-                    <div>{{ $staff['role_name'] }}</div>
-                    <div>{{ $staff['date_of_birth'] }}</div>
-                    <div>{{ $staff['phone_number'] }}</div>
+                    <div>{{ $staff['roleName'] }}</div>
+                    <div>{{ $staff['dateOfBirth'] }}</div>
+                    <div>{{ $staff['phoneNumber'] }}</div>
                     <div class="grid grid-cols-2 col-span-2 gap-1">
                         <a href="/admin/{{ $branchId }}/edit-staff/{{ $staff['id'] }}">
                             <button type="button"
