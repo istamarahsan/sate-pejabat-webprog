@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Lib\Branch\BranchService;
 use App\Lib\Staff\StaffService;
+use App\Lib\Customer\ReviewService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -18,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton('branchService', function () {
             return new BranchService();
+        });
+        $this->app->singleton('reviewService', function () {
+            return new ReviewService();
         });
     }
 
