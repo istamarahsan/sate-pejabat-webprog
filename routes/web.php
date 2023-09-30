@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AddReviewController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Staff\AddStaffController;
 use App\Http\Controllers\Staff\ManageStaffController;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -93,3 +95,7 @@ Route::middleware('auth')
         });
     }
 );
+
+Route::get('/review', [AddReviewController::class, 'get']);
+
+Route::post('/review', [AddReviewController::class, 'post']);

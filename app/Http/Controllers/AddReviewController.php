@@ -9,10 +9,15 @@ use Illuminate\Http\Request;
 class AddReviewController extends Controller {
     protected ReviewService $reviewService;
 
+    public function __construct() {
+        $this->reviewService = app("reviewService");
+    }
+
     public function get(Request $request) {
-        //   
+        return view('add-review');
     }
     public function post(Request $request) {
+
         $details = $request->validate([
             'name' => ['string', 'required'],
             'taste' => ['int', 'required'],
@@ -30,6 +35,6 @@ class AddReviewController extends Controller {
             return response('no', 500);
         }
 
-        return response('ok', 200);
+        return redirect('/reviews');
     }
 }

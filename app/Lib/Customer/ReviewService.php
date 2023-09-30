@@ -45,21 +45,11 @@ class ReviewService {
      * ]
      */
     public function createReview($details): int | null {
-        [
-            $name, 
-            $taste, 
-            $atmosphere, 
-            $cleanliness, 
-            $service,
-            $price,
-            $comments,
-            $goals
-        ] = $details;
 
         if (
             $this->array_any(function($e) {
                 return $e < 1 || $e > 3;
-            }, [$taste, $atmosphere, $cleanliness, $service, $price])
+            }, [$details['taste'], $details['atmosphere'], $details['cleanliness'], $details['service'], $details['price']])
         ) {
             return null;
         }
@@ -69,14 +59,14 @@ class ReviewService {
         return DB::table('reviews')
             ->insertGetId([
                 'date' => $now,
-                'reviewer_name' => $name,
-                'score_taste' => $taste,
-                'score_atmosphere' => $atmosphere,
-                'score_cleanliness' => $cleanliness,
-                'score_service' => $service,
-                'score_price' => $price,
-                'reviewer_comments' => $comments,
-                'reviewer_goals' => $goals
+                'reviewer_name' => $details['name'],
+                'score_taste' => $details['taste'],
+                'score_atmosphere' => $details['atmosphere'],
+                'score_cleanliness' => $details['cleanliness'],
+                'score_service' => $details['service'],
+                'score_price' => $details['price'],
+                'reviewer_comments' => $details['comments'],
+                'reviewer_goals' => $details['goals']
             ]);
     }
 
