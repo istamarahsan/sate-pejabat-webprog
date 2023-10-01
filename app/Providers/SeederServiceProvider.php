@@ -39,14 +39,14 @@ class SeederServiceProvider extends ServiceProvider
 
         if (DB::table('branches')->count() == 0) {
             DB::table('branches')->insert([
-                'id' => 0,
+                'id' => 1,
                 'name' => 'Null Branch'
             ]);
         }
 
         if (DB::table('staff_roles')->count() == 0) {
             DB::table('staff_roles')->insert([
-                'id' => 0,
+                'id' => 1,
                 'name' => 'Null Role'
             ]);
         }
