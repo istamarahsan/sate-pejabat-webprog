@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddReviewController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ReviewsController;
 use App\Http\Controllers\Staff\AddStaffController;
 use App\Http\Controllers\Staff\ManageStaffController;
 use Illuminate\Http\Request;
@@ -97,5 +98,6 @@ Route::middleware('auth')
 );
 
 Route::get('/review', [AddReviewController::class, 'get']);
-
 Route::post('/review', [AddReviewController::class, 'post']);
+
+Route::get('/reviews', [ReviewsController::class, 'get']);
