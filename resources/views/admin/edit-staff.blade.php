@@ -3,25 +3,25 @@
         @csrf
 
         <div class="w-full grid grid-cols-2">
-            <label class="" for="full_name">Staff Name:</label>
-            <input value="{{ $user['full_name'] }}" type="text" id="full_name" name="full_name"
+            <label class="" for="fullName">Staff Name:</label>
+            <input value="{{ $user['name'] }}" type="text" id="fullName" name="fullName"
                 required>
         </div>
         <br>
 
         <!-- Date of Birth -->
         <div class="w-full grid grid-cols-2">
-            <label for="date_of_birth">Date of Birth:</label>
-            <input value="{{ $user['date_of_birth'] }}" type="date" id="date_of_birth"
-                name="date_of_birth" required>
+            <label for="dateOfBirth">Date of Birth:</label>
+            <input value="{{ $user['dateOfBirth'] }}" type="date" id="dateOfBirth"
+                name="dateOfBirth" required>
         </div>
         <br>
 
         <!-- Phone Number -->
         <div class="w-full grid grid-cols-2">
-            <label for="phone_number">Phone Number:</label>
-            <input value="{{ $user['phone_number'] }}" type="tel" id="phone_number"
-                name="phone_number" required>
+            <label for="phoneNumber">Phone Number:</label>
+            <input value="{{ $user['phoneNumber'] }}" type="tel" id="phoneNumber"
+                name="phoneNumber" required>
         </div>
         <br>
 
@@ -39,7 +39,7 @@
             <label for="role">Staff Role:</label>
             <select id="role" name="role" required>
                 @foreach ($staffRoles as $role)
-                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                    <option value="{{ $role['id'] }}">{{ $role['name'] }}</option>
                 @endforeach
             </select>
         </div>

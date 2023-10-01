@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Staff;
+namespace App\Http\Controllers;
 
 use App\Lib\Branch\BranchService;
 use App\Lib\Staff\StaffService;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
-class ManageStaffController {
+class ManageStaffController extends Controller {
     protected StaffService $staffService;
     protected BranchService $branchService;
 
     public function __construct() {
         $this->staffService = app('staffService');
         $this->branchService = app('branchService');
+        $this->middleware('auth');
     }
 
     public function get(Request $request) {
@@ -28,5 +28,14 @@ class ManageStaffController {
             'branchId' => $branchId,
             'staffMembers' => $staff
         ]);
+    }
+
+    public function delete(Request $request) {
+        $branchId = $request->route('branchId');
+        $staffUserId = $request->route('staffId');
+
+        $this->staffService->deleteStaffMember($staffUserId);
+
+        return redirect('admin/' . $branchId);
     }
 }

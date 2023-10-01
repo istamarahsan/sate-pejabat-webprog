@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Staff;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Lib\Branch\BranchService;
 use App\Lib\Staff\StaffService;
 use Illuminate\Http\Request;
@@ -15,6 +14,7 @@ class AddStaffController extends Controller
     public function __construct() {
         $this->staffService = app('staffService');
         $this->branchService = app('branchService');
+        $this->middleware('auth');
     }
 
     public function get(Request $request) {

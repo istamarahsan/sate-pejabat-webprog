@@ -54,6 +54,36 @@ class StaffService {
             ];
         }, $dbResult);
     }
+
+    /**
+     * @param int $id
+     * @return array [
+     * id: int, 
+     * name: string, 
+     * phoneNumber: string,
+     * dateOfBirth: string,
+     * address: string,
+     * roleId: int,
+     * roleName: string
+     * ]
+     */
+    public function getStaffById($id): array {
+        $row = DB::table('staff')
+                ->selectRaw('staff.user_id AS id, staff.name, staff.phone_number, staff.date_of_birth, staff.address, staff_roles.id AS role_id, staff_roles.name AS role_name')
+                ->where('user_id', '=', $id)
+                ->join('staff_roles', 'staff.role_id', '=', 'staff_roles.id')
+                ->first();
+        return [
+            'id' => $row->id,
+            'name' => $row->name,
+            'phoneNumber' => $row->phone_number,
+            'dateOfBirth' => $row->date_of_birth,
+            'address' => $row->address,
+            'roleId' => $row->role_id,
+            'roleName' => $row->role_name,
+        ];
+    }
+
     /**
      * @param int $branchId ID of the branch for which to create the staff
      * @param array $details [
@@ -106,5 +136,14 @@ class StaffService {
                 'address' => $details['address'],
                 'role_id' => $details['roleId']
             ]);
+    }
+
+    /**
+     * @param int $id
+     */
+    public function deleteStaffMember(int $id) {
+        DB::table('staff')
+            ->where('user_id', '=', $id)
+            ->delete();
     }
 }
