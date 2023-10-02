@@ -1,4 +1,4 @@
-@extends('layouts.sidebar')
+@extends('layouts.dashboard')
 
 @section('child-content')
     <h1 class="text-3xl font-bold">This is the Page Title</h1>

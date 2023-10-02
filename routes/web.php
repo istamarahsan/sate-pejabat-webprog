@@ -26,13 +26,13 @@ Route::prefix('auth')->group(function() {
 });
 
 Route::middleware('auth')->get('/', function () {
-    return '<h1>Horeee</h1>';
+    return redirect("admin/1");
 });
 
 Route::prefix('admin/{branchId}')
     ->group(function () {
         Route::get('', function(Request $request) {
-            $branchId = $request->route('branchId') ?? 0;
+            $branchId = $request->route('branchId') ?? 1;
             return redirect('admin/' . (string)$branchId . '/manage-staff');
         });
         Route::get('add-staff', [AddStaffController::class, 'get']);

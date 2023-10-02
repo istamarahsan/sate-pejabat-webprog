@@ -22,10 +22,13 @@ class ManageStaffController extends Controller {
         if ($branch == null) {
             return response('Not Found', 404);
         }
-
+        
         $staff = $this->staffService->getStaffFromBranch($branchId);
+        $branches = $this->branchService->getAllBranches();
+
         return view('admin.manage-staff', [
             'branchId' => $branchId,
+            'branches' => $branches,
             'staffMembers' => $staff
         ]);
     }

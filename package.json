@@ -20,6 +20,8 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "@material-tailwind/html": "^2.0.0"
+        "@fontsource/lexend": "^5.0.13",
+        "@material-tailwind/html": "^2.0.0",
+        "flowbite": "^1.8.1"
     }
 }

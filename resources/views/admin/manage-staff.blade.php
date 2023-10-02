@@ -1,4 +1,6 @@
-<x-app-layout>
+@extends('layouts.dashboard', ['test'=>$branches])
+
+@section('child-content')
     <div class="flex flex-col items-center gap-10">
         <a href="/admin/{{ $branchId }}/add-staff">
             <div class="p-2 px-5 rounded-xl bg-black text-white w-fit">Add New Staff Member</div>
@@ -34,4 +36,4 @@
             @endforeach
         </div>
     </div>
-</x-app-layout>
+@endsection

@@ -19,4 +19,14 @@ class BranchService {
         }
         return get_object_vars($dbResult[0]);
     }
+
+    /**
+     * @return array [ 
+     * 
+     * ]
+     */
+    public function getAllBranches(): array {
+        $dbResult = DB::table('branches')->select(['id', 'name'])->get()->toArray();
+        return array_map(function($object) {return get_object_vars($object);}, $dbResult);
+    }
 }
