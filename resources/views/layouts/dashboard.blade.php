@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="flex flex-grow">
-        <div class="p-2 border border-zinc-800 border-y-0 border-l-0 flex flex-col">
-            <div>
+        <div class="border border-zinc-800 border-y-0 border-l-0 flex flex-col">
+            <div class="px-2">
                 <p class="text-[0.75rem] text-zinc-700 font-bold mb-1">BRANCH</p>
-                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="font-medium rounded-lg text-md px-5 py-2.5 text-center inline-flex items-center border border-zinc-500 hover:bg-zinc-800" type="button">
+                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="font-medium rounded-lg text-md px-5 py-2.5 text-center inline-flex items-center border transition-colors duration-200 border-zinc-500 hover:bg-zinc-800" type="button">
                     BRANCH {{ $branchId }}
                     @if(count($branches) > 1)
                       <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -27,19 +27,19 @@
                   </div>
                 @endif
             </div>
-            <div class="mt-2">
+            <div class="mt-2 px-2">
               <div class="h-1/2 border border-t-0 border-x-0 border-zinc-800"></div>
             </div>
             <div class="flex flex-col">
-                <button class="py-2 px-5 mt-2 w-full text-left text-sm rounded-lg font-semibold text-zinc-100 hover:bg-zinc-800">
+                <a href="manage-staff" class="py-3 px-5 mt-2 w-full transition-colors duration-200 text-left text-sm font-semibold text-zinc-100 {{ Request::is('admin/*/manage-staff') ? "bg-zinc-800 hover:bg-zinc-600" : "hover:bg-zinc-800" }}">
                   Staffs
-                </button>
-                <button class="py-2 px-5 mt-2 w-full text-left text-sm rounded-lg font-semibold text-zinc-100 hover:bg-zinc-800">
+                </a>
+                <a href="products" class="py-3 px-5 mt-2 w-full transition-colors duration-200 text-left text-sm font-semibold text-zinc-100 {{ Request::is('admin/*/products') ? "bg-zinc-800 hover:bg-zinc-600" : "hover:bg-zinc-800" }}">
                   Products
-                </button>
-                <button class="py-2 px-5 mt-2 w-full text-left text-sm rounded-lg font-semibold text-zinc-100 hover:bg-zinc-800">
+                </a>
+                <a class="py-3 px-5 mt-2 w-full transition-colors duration-200 text-left text-sm font-semibold text-zinc-100 {{ Request::is('admin/*/sales') ? "bg-zinc-800 hover:bg-zinc-600" : "hover:bg-zinc-800" }}">
                   Sales
-                </button>
+                </a>
             </div>
         </div>
         <div>
