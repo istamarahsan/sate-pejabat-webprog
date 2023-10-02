@@ -12,7 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement('SET SESSION sql_require_primary_key=0');
+        if(DB::getDriverName() == "mysql") {
+            DB::statement('SET SESSION sql_require_primary_key=0');
+        }
         Schema::create('staff', function (Blueprint $table) {
             $table->timestamps();
             $table->integer('user_id')->primary();
@@ -21,7 +23,9 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->string('address');
         });
-        DB::statement('SET SESSION sql_require_primary_key=1');
+        if(DB::getDriverName() == "mysql") {
+            DB::statement('SET SESSION sql_require_primary_key=1');
+        }
     }
 
     /**

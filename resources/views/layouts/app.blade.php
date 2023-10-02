@@ -17,12 +17,12 @@
                 <button class="ml-3 rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
                     Dashboard
                 </button>
-                <button class="ml-0 rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
+                <button class="ml-2 rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
                     Manage
                 </button>
-                {{-- <button class="ml-0 rounded-lg hover:bg-zinc-800 px-2 py-1">
-                    Settings
-                </button> --}}
+                <button class="ml-2 rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
+                    Reviews
+                </button>
             </div>
             <button class="ml-auto text-white font-normal text-sm rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
                 Welcome, ahsan

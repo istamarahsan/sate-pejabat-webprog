@@ -12,7 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement('SET SESSION sql_require_primary_key=0');
+        if(DB::getDriverName() == "mysql") {
+            DB::statement('SET SESSION sql_require_primary_key=0');
+        }
         Schema::create('transaction_details', function (Blueprint $table) {
             $table->timestamps();
             $table->integer('transaction_id');
@@ -22,7 +24,9 @@ return new class extends Migration
             $table->double('price_per_unit');
             $table->primary(['transaction_id', 'number']);
         });
-        DB::statement('SET SESSION sql_require_primary_key=1');
+        if(DB::getDriverName() == "mysql") {
+            DB::statement('SET SESSION sql_require_primary_key=0');
+        }
     }
 
     /**
