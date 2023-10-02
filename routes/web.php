@@ -1,6 +1,12 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AddReviewController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ReviewsController;
+use App\Http\Controllers\AddStaffController;
+use App\Http\Controllers\EditStaffController;
+use App\Http\Controllers\ManageStaffController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,22 +20,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("/", function () {
-    return redirect("/dashboard");
+Route::prefix('auth')->group(function() {
+    Route::get('login', [LoginController::class, 'get'])->name('login');
+    Route::post('login', [LoginController::class, 'authenticate'])->name('login');
 });
 
-<<<<<<< Updated upstream
-Route::middleware("auth")->group(function () {
-    Route::get("/dashboard", function () {
-        return view("dashboard");
-    });
-    Route::get("/profile", [ProfileController::class, "edit"])->name("profile.edit");
-    Route::patch("/profile", [ProfileController::class, "update"])->name("profile.update");
-    Route::delete("/profile", [ProfileController::class, "destroy"])->name("profile.destroy");
-=======
 Route::middleware('auth')->get('/', function () {
-    return view("admin/test");
->>>>>>> Stashed changes
+    return '<h1>Horeee</h1>';
 });
 
-require __DIR__ . "/auth.php";
+Route::prefix('admin/{branchId}')
+    ->group(function () {
+        Route::get('', function(Request $request) {
+            $branchId = $request->route('branchId') ?? 0;
+            return redirect('admin/' . (string)$branchId . '/manage-staff');
+        });
+        Route::get('add-staff', [AddStaffController::class, 'get']);
+        Route::post('add-staff', [AddStaffController::class, 'post']);
+        Route::get('manage-staff', [ManageStaffController::class, 'get']);
+        Route::post('delete/{staffId}', [ManageStaffController::class, 'delete']);
+        Route::get('edit-staff/{staffId}', [EditStaffController::class, 'get']);
+        Route::post('edit-staff/{staffId}', [EditStaffController::class, 'post']);
+    }
+);
+
+Route::get('/review', [AddReviewController::class, 'get']);
+Route::post('/review', [AddReviewController::class, 'post']);
+
+Route::get('/reviews', [ReviewsController::class, 'get']);
