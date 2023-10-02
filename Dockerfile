@@ -26,7 +26,7 @@ RUN apt-get update && apt-get install -y \
     libzip-dev
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl gd
+RUN docker-php-ext-install pdo_mysql zip exif pcntl gd
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 FROM system as deploy
