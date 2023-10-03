@@ -1,5 +1,6 @@
 import forms from '@tailwindcss/forms';
 
+const colors = require('tailwindcss/colors')
 const withMT = require("@material-tailwind/html/utils/withMT");
 
 /** @type {import('tailwindcss').Config} */
@@ -12,8 +13,11 @@ export default withMT({
 
     theme: {
         extend: {
+            colors: {
+                ...colors,
+            }
         },
     },
 
-    plugins: [forms],
+    plugins: [forms, require('flowbite/plugin')],
 });

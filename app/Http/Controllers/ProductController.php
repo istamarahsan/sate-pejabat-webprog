@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Lib\Branch\BranchService;
-use App\Lib\Staff\StaffService;
+use App\Lib\ProductService;
 use Illuminate\Http\Request;
 
-class ManageStaffController extends Controller {
-    protected StaffService $staffService;
+class ProductController extends Controller {
+    protected ProductService $productService;
     protected BranchService $branchService;
 
     public function __construct() {
-        $this->staffService = app('staffService');
+        $this->productService = app('productService');
         $this->branchService = app('branchService');
         $this->middleware('auth');
     }
@@ -22,23 +22,14 @@ class ManageStaffController extends Controller {
         if ($branch == null) {
             return response('Not Found', 404);
         }
-        
-        $staff = $this->staffService->getStaffFromBranch($branchId);
+
+        $products = $this->productService->getAllProducts();
         $branches = $this->branchService->getAllBranches();
 
-        return view('admin.manage-staff', [
+        return view('admin/products', [
             'branchId' => $branchId,
             'branches' => $branches,
-            'staffMembers' => $staff
+            'products' => $products,
         ]);
-    }
-
-    public function delete(Request $request) {
-        $branchId = $request->route('branchId');
-        $staffUserId = $request->route('staffId');
-
-        $this->staffService->deleteStaffMember($staffUserId);
-
-        return redirect('admin/' . $branchId);
     }
 }
