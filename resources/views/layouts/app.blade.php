@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
-        @vite(['resources/css/app.css', 'resources/js/app.js', 'node_modules/flowbite/dist/flowbite.min.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/flowbite.min.js'])
     </head>
     <body class="bg-zinc-900 min-h-screen min-w-screen text-white flex flex-col">
         <header class="min-w-screen p-2 border border-zinc-800 border-t-0 border-x-0 flex items-center text-white">
