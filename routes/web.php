@@ -9,6 +9,7 @@ use App\Http\Controllers\ManageStaffController;
 use App\Http\Controllers\ProductController;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
