@@ -27,8 +27,13 @@ Route::prefix('auth')->group(function() {
     Route::post('login', [LoginController::class, 'authenticate'])->name('login');
 });
 
-Route::middleware('auth')->get('/', function () {
-    return redirect("admin/1");
+Route::middleware('auth')->get('admin', function (Request $request) {
+    $defaultBranch = DB::table('branches')
+        ->select('id')
+        ->first()
+        ->id;
+
+    return redirect('/admin' . '/' . $defaultBranch);
 });
 
 Route::prefix('admin/{branchId}')

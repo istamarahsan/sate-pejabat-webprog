@@ -14,9 +14,11 @@
                 TEST
             </button>
             <div class="text-zinc-500 font-bold flex items-center">
-                <button class="ml-3 rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
-                    Dashboard
-                </button>
+                <a href="/admin">
+                    <button class="ml-3 rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
+                        Dashboard
+                    </button>
+                </a>    
                 <button class="ml-2 rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
                     Manage
                 </button>

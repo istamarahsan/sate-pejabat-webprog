@@ -1,4 +1,6 @@
-<x-app-layout>
+@extends('layouts.app')
+
+@section('content')
     <form action="/admin/{{ $branchId }}/edit-staff/{{ $user['id'] }}" method="POST">
         @csrf
 
@@ -49,4 +51,4 @@
         <button class="w-full bg-black rounded-xl text-white py-2" type="submit">Save
             Changes</button>
     </form>
-</x-app-layout>
+@endsection
