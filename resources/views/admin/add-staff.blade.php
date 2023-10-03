@@ -1,5 +1,7 @@
-<x-app-layout>
-    <form action="/admin/{{ $branch['id'] }}/add-staff" method="POST">
+@extends('layouts.app')
+
+@section('content')
+    <form class="text-white" action="/admin/{{ $branch['id'] }}/add-staff" method="POST">
         @csrf
 
         @error('fullName')
@@ -7,7 +9,7 @@
         @enderror
         <div class="w-full grid grid-cols-2">
             <label class="" for="fullName">Staff Name:</label>
-            <input type="text" id="fullName" name="fullName" required>
+            <input type="text" class="text-black" id="fullName" name="fullName" required>
         </div>
         <br>
 
@@ -17,7 +19,7 @@
         @enderror
         <div class="w-full grid grid-cols-2">
             <label for="dateOfBirth">Date of Birth:</label>
-            <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+            <input type="date" class="text-black" id="dateOfBirth" name="dateOfBirth" required>
         </div>
         <br>
 
@@ -27,7 +29,7 @@
         @enderror
         <div class="w-full grid grid-cols-2">
             <label for="phoneNumber">Phone Number:</label>
-            <input type="tel" id="phoneNumber" name="phoneNumber" required>
+            <input type="tel" class="text-black" id="phoneNumber" name="phoneNumber" required>
         </div>
         <br>
 
@@ -37,7 +39,7 @@
         @enderror
         <div class="w-full grid grid-cols-2">
             <label for="address">Address:</label>
-            <textarea id="address" name="address" rows="4" required></textarea>
+            <textarea id="address" class="text-black" name="address" rows="4" required></textarea>
         </div>
         <br>
 
@@ -47,7 +49,7 @@
         @enderror
         <div class="w-full grid grid-cols-2">
             <label for="roleId">Staff Role:</label>
-            <select id="roleId" name="roleId" required>
+            <select class="text-black" id="roleId" name="roleId" required>
                 @foreach ($staffRoles as $role)
                     <option value="{{ $role['id'] }}">{{ $role['name'] }}</option>
                 @endforeach
@@ -58,4 +60,4 @@
         <!-- Submit Button -->
         <button class="w-full bg-black rounded-xl text-white py-2" type="submit">Add Staff</button>
     </form>
-</x-app-layout>
+@endsection

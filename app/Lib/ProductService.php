@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Lib\Branch;
+namespace App\Lib;
 
 use Illuminate\Support\Facades\DB;
 
-class BranchService {
+class ProductService {
     /**
-     * @param int $id ID of the branch
+     * @param int $id ID of the product
      * @return array [
      * id: int, 
      * name: string
+     * price: int
      * ]
      */
-    public function getBranch($id): array | null {
-        $dbResult = DB::table('branches')->select(['id', 'name'])->where('id', '=', $id)->get(); 
+    public function getProduct($id): array | null {
+        $dbResult = DB::table('products')->select(['id', 'name', 'price'])->where('id', '=', $id)->get(); 
         if (count($dbResult) != 1) {
             return null;
         }
@@ -25,8 +26,8 @@ class BranchService {
      * 
      * ]
      */
-    public function getAllBranches(): array {
-        $dbResult = DB::table('branches')->select(['id', 'name'])->get()->toArray();
+    public function getAllProducts(): array {
+        $dbResult = DB::table('products')->select(['id', 'name', 'price'])->get()->toArray();
         return array_map(function($object) {return get_object_vars($object);}, $dbResult);
     }
 }

@@ -6,6 +6,8 @@ use App\Http\Controllers\ReviewsController;
 use App\Http\Controllers\AddStaffController;
 use App\Http\Controllers\EditStaffController;
 use App\Http\Controllers\ManageStaffController;
+use App\Http\Controllers\ProductController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,21 +28,24 @@ Route::prefix('auth')->group(function() {
 });
 
 Route::middleware('auth')->get('/', function () {
-    return '<h1>Horeee</h1>';
+    return redirect("admin/1");
 });
 
 Route::prefix('admin/{branchId}')
     ->group(function () {
         Route::get('', function(Request $request) {
-            $branchId = $request->route('branchId') ?? 0;
+            $branchId = $request->route('branchId') ?? 1;
             return redirect('admin/' . (string)$branchId . '/manage-staff');
         });
+
         Route::get('add-staff', [AddStaffController::class, 'get']);
         Route::post('add-staff', [AddStaffController::class, 'post']);
         Route::get('manage-staff', [ManageStaffController::class, 'get']);
         Route::post('delete/{staffId}', [ManageStaffController::class, 'delete']);
         Route::get('edit-staff/{staffId}', [EditStaffController::class, 'get']);
         Route::post('edit-staff/{staffId}', [EditStaffController::class, 'post']);
+
+        Route::get('products', [ProductController::class, "get"]);
     }
 );
 

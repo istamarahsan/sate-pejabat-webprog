@@ -20,6 +20,9 @@ return new class extends Migration
         Schema::table('staff', function (Blueprint $table) {
             $table->integer('branch_id');
         });
+        Schema::table('reviews', function (Blueprint $table) {
+            $table->integer("branch_id");
+        });
     }
 
     /**
@@ -28,6 +31,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropColumns('staff', ['branch_id']);
+        Schema::dropColumns('reviews', ['branch_id']);
         Schema::dropIfExists('branches');
     }
 };
