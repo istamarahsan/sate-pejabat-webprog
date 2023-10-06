@@ -26,42 +26,54 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', 'review');
 
+Route::get('admin', function (Request $request) {
+    $defaultBranch = getDefaultBranch();
+    return redirect($defaultBranch . '/admin');
+});
+
+Route::get('review', function (Request $request) {
+    $defaultBranch = getDefaultBranch();
+    return redirect($defaultBranch . '/review');
+});
+
 Route::prefix('auth')->group(function() {
     Route::get('login', [LoginController::class, 'get'])->name('login');
     Route::post('login', [LoginController::class, 'authenticate'])->name('login');
 });
 
-Route::middleware('auth')->get('admin', function (Request $request) {
-    $defaultBranch = DB::table('branches')
-        ->select('id')
-        ->first()
-        ->id;
-
-    return redirect('/admin' . '/' . $defaultBranch);
-});
-
-Route::prefix('admin/{branchId}')
-    ->middleware('auth')
+Route::prefix('{branchId}')
     ->group(function () {
-        Route::get('', function(Request $request) {
-            $branchId = $request->route('branchId') ?? 1;
-            return redirect('admin/' . (string)$branchId . '/manage-staff');
-        });
+        Route::middleware('auth')->get('reviews');
+        Route::middleware('auth')
+            ->prefix('admin')
+            ->group(function () {
+                Route::get('', function(Request $request) {
+                    $branchId = $request->route('branchId') ?? 1;
+                    return redirect((string)$branchId . '/admin' . '/managestaff');
+                });
+        
+                Route::get('addstaff', [AddStaffController::class, 'get']);
+                Route::post('addstaff', [AddStaffController::class, 'post']);
+                Route::get('managestaff', [ManageStaffController::class, 'get']);
+                Route::post('delete/{staffId}', [ManageStaffController::class, 'delete']);
+                Route::get('editstaff/{staffId}', [EditStaffController::class, 'get']);
+                Route::post('editstaff/{staffId}', [EditStaffController::class, 'post']);
+        
+                Route::get('products', [ProductController::class, 'get']);
+        
+                Route::get('cashflow', [CashflowController::class, 'get']);
+                
+            });
+        Route::prefix('review')
+            ->group(function () {
+                Route::get('/', [AddReviewController::class, 'get']);
+                Route::post('/', [AddReviewController::class, 'post']);
+            });
+    });
 
-        Route::get('add-staff', [AddStaffController::class, 'get']);
-        Route::post('add-staff', [AddStaffController::class, 'post']);
-        Route::get('manage-staff', [ManageStaffController::class, 'get']);
-        Route::post('delete/{staffId}', [ManageStaffController::class, 'delete']);
-        Route::get('edit-staff/{staffId}', [EditStaffController::class, 'get']);
-        Route::post('edit-staff/{staffId}', [EditStaffController::class, 'post']);
-
-        Route::get('products', [ProductController::class, 'get']);
-
-        Route::get('cashflow', [CashflowController::class, 'get']);
-    }
-);
-
-Route::middleware('auth')->get('/review', [AddReviewController::class, 'get']);
-Route::post('/review', [AddReviewController::class, 'post']);
-
-Route::get('/reviews', [ReviewsController::class, 'get']);
+function getDefaultBranch() {
+    return DB::table('branches')
+    ->select('id')
+    ->first()
+    ->id;
+}
