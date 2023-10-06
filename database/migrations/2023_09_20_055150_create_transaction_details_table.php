@@ -16,7 +16,6 @@ return new class extends Migration
             DB::statement('SET SESSION sql_require_primary_key=0');
         }
         Schema::create('transaction_details', function (Blueprint $table) {
-            $table->timestamps();
             $table->integer('transaction_id');
             $table->integer('product_id');
             $table->integer('quantity');

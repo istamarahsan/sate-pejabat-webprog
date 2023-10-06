@@ -16,7 +16,6 @@ return new class extends Migration
             DB::statement('SET SESSION sql_require_primary_key=0');
         }
         Schema::create('staff', function (Blueprint $table) {
-            $table->timestamps();
             $table->integer('user_id')->primary();
             $table->string('name');
             $table->string('phone_number');
