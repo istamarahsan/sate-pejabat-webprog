@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Lib\Branch\BranchService;
-use App\Lib\Staff\StaffService;
+use App\Lib\BranchService;
+use App\Lib\StaffService;
 use Illuminate\Http\Request;
 
 class ManageStaffController extends Controller {

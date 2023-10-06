@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Lib\Customer;
+namespace App\Lib;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;

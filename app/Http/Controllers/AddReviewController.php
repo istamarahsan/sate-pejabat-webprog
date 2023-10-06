@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Lib\Customer\ReviewService;
+use App\Lib\ReviewService;
 use Illuminate\Http\Request;
 
 class AddReviewController extends Controller {
@@ -12,12 +12,12 @@ class AddReviewController extends Controller {
     public function __construct() {
         $this->reviewService = app("reviewService");
     }
-
+    
     public function get(Request $request) {
         return view('add-review');
     }
     public function post(Request $request) {
-
+        $branchId = $request->route('branchId');
         $details = $request->validate([
             'name' => ['string', 'required'],
             'taste' => ['int', 'required'],
@@ -29,7 +29,7 @@ class AddReviewController extends Controller {
             'goals' => ['string', 'required']
         ]);
 
-        $reviewId = $this->reviewService->createReview($details);
+        $reviewId = $this->reviewService->createReview($branchId, $details);
 
         if ($reviewId == null) {
             return response('no', 500);

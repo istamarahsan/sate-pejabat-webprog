@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Lib\Customer\ReviewService;
+use App\Lib\ReviewService;
 use Illuminate\Http\Request;
 
 class ReviewsController extends Controller {
@@ -15,7 +15,8 @@ class ReviewsController extends Controller {
     }
 
     public function get(Request $request) {
-        $reviews = $this->reviewService->getReviews();
+        $branchId = $request->route('branchId');
+        $reviews = $this->reviewService->getReviews($branchId);
         return view('admin.view-reviews', [
             'reviews' => $reviews,
         ]);

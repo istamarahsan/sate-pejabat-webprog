@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Lib\Branch;
+namespace App\Lib;
 
 use Illuminate\Support\Facades\DB;
 

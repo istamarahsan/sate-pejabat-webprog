@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Lib\Branch\BranchService;
+use App\Lib\BranchService;
 use App\Lib\ProductService;
 use Illuminate\Http\Request;
 
