@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Lib\Branch\BranchService;
+use App\Lib\CashflowService;
 use App\Lib\Staff\StaffService;
 use App\Lib\Customer\ReviewService;
 use App\Lib\ProductService;
@@ -27,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton('productService', function() {
             return new ProductService();
+        });
+        $this->app->singleton('cashflowService', function () {
+            return new CashflowService();
         });
     }
 

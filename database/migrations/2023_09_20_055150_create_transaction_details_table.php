@@ -18,11 +18,10 @@ return new class extends Migration
         Schema::create('transaction_details', function (Blueprint $table) {
             $table->timestamps();
             $table->integer('transaction_id');
-            $table->integer('number');
             $table->integer('product_id');
             $table->integer('quantity');
             $table->double('price_per_unit');
-            $table->primary(['transaction_id', 'number']);
+            $table->primary(['transaction_id', 'product_id']);
         });
         if (DB::getDriverName() == "mysql") {
             DB::statement('SET SESSION sql_require_primary_key=1');

@@ -4,6 +4,7 @@ use App\Http\Controllers\AddReviewController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ReviewsController;
 use App\Http\Controllers\AddStaffController;
+use App\Http\Controllers\CashflowController;
 use App\Http\Controllers\EditStaffController;
 use App\Http\Controllers\ManageStaffController;
 use App\Http\Controllers\ProductController;
@@ -51,7 +52,9 @@ Route::prefix('admin/{branchId}')
         Route::get('edit-staff/{staffId}', [EditStaffController::class, 'get']);
         Route::post('edit-staff/{staffId}', [EditStaffController::class, 'post']);
 
-        Route::get('products', [ProductController::class, "get"]);
+        Route::get('products', [ProductController::class, 'get']);
+
+        Route::get('cashflow', [CashflowController::class, 'get']);
     }
 );
 
