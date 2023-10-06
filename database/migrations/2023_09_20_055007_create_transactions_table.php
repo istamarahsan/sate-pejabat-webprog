@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->integer('branch_id');
+            $table->integer('handler_id');
             $table->text('notes')->nullable();
             $table->date('date');
         });
