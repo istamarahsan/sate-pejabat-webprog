@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Lib\Branch\BranchService;
+use App\Lib\BranchService;
 use App\Lib\CashflowService;
-use App\Lib\Staff\StaffService;
-use App\Lib\Customer\ReviewService;
+use App\Lib\StaffService;
+use App\Lib\ReviewService;
 use App\Lib\ProductService;
 
 use Illuminate\Support\ServiceProvider;
