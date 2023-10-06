@@ -10,7 +10,6 @@ class EditStaffController extends Controller {
 
     public function __construct() {
         $this->staffService = app('staffService');
-        $this->middleware('auth');
     }
 
     public function get(Request $request) {

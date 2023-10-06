@@ -11,7 +11,6 @@ class ReviewsController extends Controller {
 
     public function __construct() {
         $this->reviewService = app('reviewService');
-        $this->middleware('auth');
     }
 
     public function get(Request $request) {

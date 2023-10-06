@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 class CashflowController extends Controller {
     protected CashflowService $cashflowService;
     public function __construct() {
-        $this->middleware('auth');
         $this->cashflowService = app('cashflowService');
     }
     public function get(Request $request) {

@@ -13,7 +13,6 @@ class ProductController extends Controller {
     public function __construct() {
         $this->productService = app('productService');
         $this->branchService = app('branchService');
-        $this->middleware('auth');
     }
 
     public function get(Request $request) {

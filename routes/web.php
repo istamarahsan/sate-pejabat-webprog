@@ -39,6 +39,7 @@ Route::middleware('auth')->get('admin', function (Request $request) {
 });
 
 Route::prefix('admin/{branchId}')
+    ->middleware('auth')
     ->group(function () {
         Route::get('', function(Request $request) {
             $branchId = $request->route('branchId') ?? 1;
@@ -58,7 +59,7 @@ Route::prefix('admin/{branchId}')
     }
 );
 
-Route::get('/review', [AddReviewController::class, 'get']);
+Route::middleware('auth')->get('/review', [AddReviewController::class, 'get']);
 Route::post('/review', [AddReviewController::class, 'post']);
 
 Route::get('/reviews', [ReviewsController::class, 'get']);

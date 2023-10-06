@@ -14,7 +14,6 @@ class AddStaffController extends Controller
     public function __construct() {
         $this->staffService = app('staffService');
         $this->branchService = app('branchService');
-        $this->middleware('auth');
     }
 
     public function get(Request $request) {
