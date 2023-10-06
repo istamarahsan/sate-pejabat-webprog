@@ -13,7 +13,7 @@ class CashflowService {
      * salesTotal: float
      * ]
      */
-    public function getCashflow(CarbonPeriod $period): array {
+    public function getCashflowSummary($branchId, CarbonPeriod $period): array {
         return DB::table('transactions')
             ->selectRaw('
                 products.category AS category, 
@@ -29,6 +29,7 @@ class CashflowService {
                     $period->getEndDate()->toDateString()
                 ]
             )
+            ->where('transactions.branch_id', '=', $branchId)
             ->groupBy('products.category')
             ->get()
             ->map(fn($e) => get_object_vars($e))

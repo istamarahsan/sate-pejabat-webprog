@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name');
             $table->double('price');
+            $table->enum('category', ['FOOD', 'BEVERAGE', 'SNACK', 'OTHER']);
         });
     }
 

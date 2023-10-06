@@ -21,15 +21,13 @@ class ReviewService {
      * goals: string
      * ][]
      */
-    public function getReviews(): array {
-        $dbResult = DB::table('reviews')
+    public function getReviews($branchId): array {
+        return DB::table('reviews')
             ->selectRaw('id, date, reviewer_name AS name, score_taste AS taste, score_atmosphere AS atmosphere, score_cleanliness AS cleanliness, score_service AS service, score_price AS price, reviewer_comments AS comments, reviewer_goals AS goals')
+            ->where('branch_id', '=', $branchId)
             ->get()
+            ->map(fn($e) => get_object_vars($e))
             ->toArray();
-
-        return array_map(function ($e): array {
-            return get_object_vars($e);
-        }, $dbResult);
     }
 
     /**
@@ -44,7 +42,7 @@ class ReviewService {
      * goals: string
      * ]
      */
-    public function createReview($details): int | null {
+    public function createReview($branchId, $details): int | null {
 
         if (
             $this->array_any(function($e) {
@@ -59,6 +57,7 @@ class ReviewService {
         return DB::table('reviews')
             ->insertGetId([
                 'date' => $now,
+                'branch_id' => $branchId,
                 'reviewer_name' => $details['name'],
                 'score_taste' => $details['taste'],
                 'score_atmosphere' => $details['atmosphere'],

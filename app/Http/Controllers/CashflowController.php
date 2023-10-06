@@ -12,8 +12,9 @@ class CashflowController extends Controller {
         $this->middleware('auth');
         $this->cashflowService = app('cashflowService');
     }
-    
     public function get(Request $request) {
-        return dd($this->cashflowService->getCashflow(new CarbonPeriod('2023-01-01', '2023-12-01')));
+        $branchId = $request->route('branchId');
+        $cashflowSummary = $this->cashflowService->getCashflowSummary($branchId, new CarbonPeriod('2023-01-01', '2023-12-01'));
+        return dd($cashflowSummary);
     }
 }

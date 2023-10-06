@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
+            $table->integer('branch_id');
             $table->date('date');
             $table->string('reviewer_name');
             $table->integer('score_taste');
