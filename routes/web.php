@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::redirect('/', 'review');
+
 Route::prefix('auth')->group(function() {
     Route::get('login', [LoginController::class, 'get'])->name('login');
     Route::post('login', [LoginController::class, 'authenticate'])->name('login');
