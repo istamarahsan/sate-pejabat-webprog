@@ -23,32 +23,6 @@ class SeederServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (App::runningInConsole()) {
-            return;
-        }
-
-        if (DB::table('users')->where('user_type', 'admin')->count() == 0) {
-            $now = Date::now();
-            DB::table('users')->insert([
-                'id' => 1,
-                'password' => Hash::make('admin'),
-                'user_type' => 'admin',
-                'created_at' => $now,
-            ]);
-        }
-
-        if (DB::table('branches')->count() == 0) {
-            DB::table('branches')->insert([
-                'id' => 1,
-                'name' => 'Null Branch'
-            ]);
-        }
-
-        if (DB::table('staff_roles')->count() == 0) {
-            DB::table('staff_roles')->insert([
-                'id' => 1,
-                'name' => 'Null Role'
-            ]);
-        }
+        //
     }
 }
