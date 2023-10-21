@@ -36,7 +36,7 @@ Route::get('review', function (Request $request) {
     return redirect($defaultBranch . '/review');
 });
 
-Route::prefix('auth')->group(function() {
+Route::prefix('auth')->group(function () {
     Route::get('login', [LoginController::class, 'get'])->name('login');
     Route::post('login', [LoginController::class, 'authenticate'])->name('login');
 });
@@ -47,22 +47,21 @@ Route::prefix('{branchId}')
         Route::middleware('auth')
             ->prefix('admin')
             ->group(function () {
-                Route::get('', function(Request $request) {
+                Route::get('', function (Request $request) {
                     $branchId = $request->route('branchId') ?? 1;
                     return redirect((string)$branchId . '/admin' . '/managestaff');
                 });
-        
+
                 Route::get('addstaff', [AddStaffController::class, 'get']);
                 Route::post('addstaff', [AddStaffController::class, 'post']);
                 Route::get('managestaff', [ManageStaffController::class, 'get']);
                 Route::post('delete/{staffId}', [ManageStaffController::class, 'delete']);
                 Route::get('editstaff/{staffId}', [EditStaffController::class, 'get']);
                 Route::post('editstaff/{staffId}', [EditStaffController::class, 'post']);
-        
+
                 Route::get('products', [ProductController::class, 'get']);
-        
+
                 Route::get('cashflow', [CashflowController::class, 'get']);
-                
             });
         Route::prefix('review')
             ->group(function () {
@@ -71,9 +70,10 @@ Route::prefix('{branchId}')
             });
     });
 
-function getDefaultBranch() {
+function getDefaultBranch()
+{
     return DB::table('branches')
-    ->select('id')
-    ->first()
-    ->id;
+        ->select('id')
+        ->first()
+        ->id;
 }

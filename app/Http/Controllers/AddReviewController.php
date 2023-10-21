@@ -6,17 +6,24 @@ use App\Http\Controllers\Controller;
 use App\Lib\ReviewService;
 use Illuminate\Http\Request;
 
-class AddReviewController extends Controller {
+class AddReviewController extends Controller
+{
     protected ReviewService $reviewService;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->reviewService = app("reviewService");
     }
-    
-    public function get(Request $request) {
-        return view('add-review');
+
+    public function get(Request $request)
+    {
+        return view('add-review', [
+            'branchId' => $request->route('branchId')
+        ]);
     }
-    public function post(Request $request) {
+    public function post(Request $request)
+    {
+        return dd($request);
         $branchId = $request->route('branchId');
         $details = $request->validate([
             'name' => ['string', 'required'],
