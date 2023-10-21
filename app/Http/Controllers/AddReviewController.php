@@ -23,7 +23,6 @@ class AddReviewController extends Controller
     }
     public function post(Request $request)
     {
-        return dd($request);
         $branchId = $request->route('branchId');
         $details = $request->validate([
             'name' => ['string', 'required'],
@@ -42,6 +41,6 @@ class AddReviewController extends Controller
             return response('no', 500);
         }
 
-        return redirect('/reviews');
+        return '<span>Thank you for leaving a review, ' . $details['name'] . '.</span>';
     }
 }
