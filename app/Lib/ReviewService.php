@@ -5,7 +5,8 @@ namespace App\Lib;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class ReviewService {
+class ReviewService
+{
 
     /**
      * @return array [
@@ -21,12 +22,12 @@ class ReviewService {
      * goals: string
      * ][]
      */
-    public function getReviews($branchId): array {
+    public function getReviews(): array
+    {
         return DB::table('reviews')
             ->selectRaw('id, date, reviewer_name AS name, score_taste AS taste, score_atmosphere AS atmosphere, score_cleanliness AS cleanliness, score_service AS service, score_price AS price, reviewer_comments AS comments, reviewer_goals AS goals')
-            ->where('branch_id', '=', $branchId)
             ->get()
-            ->map(fn($e) => get_object_vars($e))
+            ->map(fn ($e) => get_object_vars($e))
             ->toArray();
     }
 
@@ -42,10 +43,10 @@ class ReviewService {
      * goals: string
      * ]
      */
-    public function createReview($branchId, $details): int | null {
-
+    public function createReview($details): int | null
+    {
         if (
-            $this->array_any(function($e) {
+            $this->array_any(function ($e) {
                 return $e < 1 || $e > 3;
             }, [$details['taste'], $details['atmosphere'], $details['cleanliness'], $details['service'], $details['price']])
         ) {
@@ -57,7 +58,6 @@ class ReviewService {
         return DB::table('reviews')
             ->insertGetId([
                 'date' => $now,
-                'branch_id' => $branchId,
                 'reviewer_name' => $details['name'],
                 'score_taste' => $details['taste'],
                 'score_atmosphere' => $details['atmosphere'],
@@ -69,9 +69,10 @@ class ReviewService {
             ]);
     }
 
-    private function array_any(callable $fn, array $array) {
+    private function array_any(callable $fn, array $array)
+    {
         foreach ($array as $value) {
-            if($fn($value)) {
+            if ($fn($value)) {
                 return true;
             }
         }

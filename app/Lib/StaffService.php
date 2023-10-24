@@ -5,14 +5,16 @@ namespace App\Lib;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class StaffService {
+class StaffService
+{
     /**
      * @return array [
      * id: int, 
      * name: string
      * ][]
      */
-    public function getStaffRoles(): array {
+    public function getStaffRoles(): array
+    {
         $dbResult = DB::table('staff_roles')
             ->select(['id', 'name'])
             ->get()
@@ -35,13 +37,13 @@ class StaffService {
      * roleName: string
      * ][]
      */
-    public function getStaffFromBranch($branchId): array {
+    public function getStaff(): array
+    {
         $dbResult = DB::table('staff')
-                ->selectRaw('staff.user_id AS id, staff.name, staff.phone_number, staff.date_of_birth, staff.address, staff_roles.id AS role_id, staff_roles.name AS role_name')
-                ->where('branch_id', '=', $branchId)
-                ->join('staff_roles', 'staff.role_id', '=', 'staff_roles.id')
-                ->get()
-                ->toArray();
+            ->selectRaw('staff.user_id AS id, staff.name, staff.phone_number, staff.date_of_birth, staff.address, staff_roles.id AS role_id, staff_roles.name AS role_name')
+            ->join('staff_roles', 'staff.role_id', '=', 'staff_roles.id')
+            ->get()
+            ->toArray();
         return array_map(function ($row) {
             return [
                 'id' => $row->id,
@@ -67,12 +69,13 @@ class StaffService {
      * roleName: string
      * ]
      */
-    public function getStaffById($id): array {
+    public function getStaffById($id): array
+    {
         $row = DB::table('staff')
-                ->selectRaw('staff.user_id AS id, staff.name, staff.phone_number, staff.date_of_birth, staff.address, staff_roles.id AS role_id, staff_roles.name AS role_name')
-                ->where('user_id', '=', $id)
-                ->join('staff_roles', 'staff.role_id', '=', 'staff_roles.id')
-                ->first();
+            ->selectRaw('staff.user_id AS id, staff.name, staff.phone_number, staff.date_of_birth, staff.address, staff_roles.id AS role_id, staff_roles.name AS role_name')
+            ->where('user_id', '=', $id)
+            ->join('staff_roles', 'staff.role_id', '=', 'staff_roles.id')
+            ->first();
         return [
             'id' => $row->id,
             'name' => $row->name,
@@ -85,7 +88,6 @@ class StaffService {
     }
 
     /**
-     * @param int $branchId ID of the branch for which to create the staff
      * @param array $details [
      * fullName: string,
      * dateOfBirth: string,
@@ -95,7 +97,8 @@ class StaffService {
      * ]
      * @return int ID of the created staff user
      */
-    public function createStaffAtBranch($branchId, $details): int {
+    public function createStaff($details): int
+    {
         $userId = DB::table('users')->insertGetId([
             'password' => Hash::make(''),
             'user_type' => 'staff'
@@ -108,13 +111,12 @@ class StaffService {
         DB::table('staff')->insert([
             'user_id' => $userId,
             'name' => $details['fullName'],
-            'branch_id' => $branchId,
             'date_of_birth' => $details['dateOfBirth'],
             'phone_number' => $details['phoneNumber'],
             'address' => $details['address'],
             'role_id' => $details['roleId'],
         ]);
-        
+
         return $userId;
     }
     /**
@@ -126,9 +128,10 @@ class StaffService {
      * roleId: int
      * ]
      */
-    public function editStaffDetails($id, $details) {
+    public function editStaffDetails($id, $details)
+    {
         DB::table('staff')
-            ->where('user_id', '=', $id)    
+            ->where('user_id', '=', $id)
             ->update([
                 'name' => $details['fullName'],
                 'date_of_birth' => $details['dateOfBirth'],
@@ -141,7 +144,8 @@ class StaffService {
     /**
      * @param int $id
      */
-    public function deleteStaffMember(int $id) {
+    public function deleteStaffMember(int $id)
+    {
         DB::table('staff')
             ->where('user_id', '=', $id)
             ->delete();

@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 @section('content')
 <div class="flex flex-col items-center p-5">
-    <form action="{{'/'.$branchId.'/review'}}" method="POST" class="flex flex-col items-stretch max-w-lg p-2 gap-2">
+    <form action="{{route('review')}}" method="POST" class="flex flex-col items-stretch max-w-lg p-2 gap-2">
         @csrf
 
         <label for="name">Full Name:</label>

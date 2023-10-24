@@ -2,42 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Lib\BranchService;
 use App\Lib\StaffService;
 use Illuminate\Http\Request;
 
 class AddStaffController extends Controller
 {
     protected StaffService $staffService;
-    protected BranchService $branchService;
 
     public function __construct()
     {
         $this->staffService = app('staffService');
-        $this->branchService = app('branchService');
     }
 
     public function get(Request $request)
     {
-        $branchId = $request->route('branchId');
-
-        $branch = $this->branchService->getBranch($branchId);
-        if ($branch == null) {
-            return response('Not Found', 404);
-        }
-
         $roles = $this->staffService->getStaffRoles();
 
         return view('admin.add-staff', [
-            'branch' => $branch,
             'staffRoles' => $roles
         ]);
     }
     public function post(Request $request)
     {
-        $branchId = $request->route('branchId');
-
-        $req = $request->validate([
+        $data = $request->validate([
             'fullName' => ['required', 'string'],
             'dateOfBirth' => ['required', 'date'],
             'phoneNumber' => ['required', 'string', 'max:20'],
@@ -45,8 +32,8 @@ class AddStaffController extends Controller
             'roleId' => ['required', 'integer']
         ]);
 
-        $this->staffService->createStaffAtBranch($branchId, $req);
+        $this->staffService->createStaff($data);
 
-        return redirect('/' . (string)$branchId . '/admin');
+        return redirect(route('admin'));
     }
 }

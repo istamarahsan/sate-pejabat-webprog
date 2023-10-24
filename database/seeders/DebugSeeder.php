@@ -13,13 +13,6 @@ class DebugSeeder extends Seeder
      */
     public function run(): void
     {
-        if (DB::table('branches')->count() == 0) {
-            DB::table('branches')->insert([
-                'id' => 1,
-                'name' => 'Null Branch'
-            ]);
-        }
-
         if (DB::table('staff_roles')->count() == 0) {
             DB::table('staff_roles')->insert([
                 'id' => 1,

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form class="text-black" action="/{{ $branchId }}/admin/editstaff/{{ $user['id'] }}" method="POST">
+<form class="text-black" action="{{route('admin.staff.edit', ['staffId' => $user['id']])}}" method="POST">
     @csrf
 
     <div class="w-full grid grid-cols-2">
