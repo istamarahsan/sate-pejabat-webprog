@@ -18,7 +18,7 @@
             TEST
         </button>
         <div class="text-zinc-500 font-bold flex items-center">
-            <a href="/admin">
+            <a href="{{route('admin')}}">
                 <button class="ml-3 rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
                     Dashboard
                 </button>
@@ -26,9 +26,11 @@
             <button class="ml-2 rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
                 Manage
             </button>
-            <button class="ml-2 rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
-                Reviews
-            </button>
+            <a href="{{route('admin.reviews')}}">
+                <button class="ml-2 rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
+                    Reviews
+                </button>
+            </a>
         </div>
         <button class="ml-auto text-white font-normal text-sm rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
             Welcome, ahsan

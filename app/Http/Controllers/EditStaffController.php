@@ -16,14 +16,12 @@ class EditStaffController extends Controller
 
     public function get(Request $request)
     {
-        $branchId = $request->route('branchId');
         $staffUserId = $request->route('staffId');
 
         $staff = $this->staffService->getStaffById($staffUserId);
         $roles = $this->staffService->getStaffRoles();
 
         return view('admin.edit-staff', [
-            'branchId' => $branchId,
             'user' => $staff,
             'staffRoles' => $roles
         ]);
@@ -31,7 +29,6 @@ class EditStaffController extends Controller
 
     public function post(Request $request)
     {
-        $branchId = $request->route('branchId');
         $staffUserId = $request->route('staffId');
 
         $req = $request->validate([
@@ -50,6 +47,6 @@ class EditStaffController extends Controller
             )
         );
 
-        return redirect('/' . $branchId . '/admin');
+        return redirect(route('admin'));
     }
 }
