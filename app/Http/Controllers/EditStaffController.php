@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use App\Lib\StaffService;
 use Illuminate\Http\Request;
 
-class EditStaffController extends Controller {
+class EditStaffController extends Controller
+{
     protected StaffService $staffService;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->staffService = app('staffService');
     }
 
-    public function get(Request $request) {
+    public function get(Request $request)
+    {
         $branchId = $request->route('branchId');
         $staffUserId = $request->route('staffId');
 
@@ -26,7 +29,8 @@ class EditStaffController extends Controller {
         ]);
     }
 
-    public function post(Request $request) {
+    public function post(Request $request)
+    {
         $branchId = $request->route('branchId');
         $staffUserId = $request->route('staffId');
 
@@ -41,11 +45,11 @@ class EditStaffController extends Controller {
         $this->staffService->editStaffDetails(
             $staffUserId,
             array_merge(
-                $req, 
+                $req,
                 ['roleId' => $req['role']]
             )
         );
 
-        return redirect('admin/' . $branchId);
+        return redirect('/' . $branchId . '/admin');
     }
 }

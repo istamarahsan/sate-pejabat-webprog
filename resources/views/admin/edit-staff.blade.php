@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form action="/admin/{{ $branchId }}/editstaff/{{ $user['id'] }}" method="POST">
+<form class="text-black" action="/{{ $branchId }}/admin/editstaff/{{ $user['id'] }}" method="POST">
     @csrf
 
     <div class="w-full grid grid-cols-2">
@@ -27,9 +27,7 @@
     <!-- Address -->
     <div class="w-full grid grid-cols-2">
         <label for="address">Address:</label>
-        <textarea id="address" name="address" rows="4" required>
-        {{ $user['address'] }}
-        </textarea>
+        <textarea id="address" name="address" rows="4" required>{{ $user['address'] }}</textarea>
     </div>
     <br>
 

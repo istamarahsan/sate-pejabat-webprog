@@ -3,7 +3,7 @@
 @section('child-content')
 <div class="mx-2 my-2 flex flex-col items-start">
     <h1 class="text-3xl font-black flex flex-grow w-full items-baseline">Manage Staff
-        <a class="ml-auto" href="/admin/{{ $branchId }}/addstaff">
+        <a class="ml-auto" href="/{{ $branchId }}/admin/addstaff">
             <div class="ml-2 py-1 px-2 rounded-lg text-sm text-center align-middle bg-black text-white hover:bg-zinc-700 transition-colors duration-200">
                 New Staff
             </div>
@@ -43,10 +43,10 @@
                         <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">{{ $staff['dateOfBirth'] }}</td>
                         <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">{{ $staff['phoneNumber'] }}</td>
                         <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">
-                            <a href="/admin/{{ $branchId }}/editstaff/{{ $staff['id'] }}" class="hover:bg-zinc-800 px-3 py-1 rounded-md transition-colors duration-200 font-bold">Edit</a>
+                            <a href="/{{ $branchId }}/admin/editstaff/{{ $staff['id'] }}" class="hover:bg-zinc-800 px-3 py-1 rounded-md transition-colors duration-200 font-bold">Edit</a>
                         </td>
                         <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">
-                            <form action="/admin/{{ $branchId }}/deletestaff/{{ $staff['id'] }}" method="post">
+                            <form action="/{{ $branchId }}/admin/deletestaff/{{ $staff['id'] }}" method="post">
                                 @csrf
                                 <button type="submit" class="hover:bg-zinc-800 px-3 py-1 rounded-md transition-colors duration-200 font-bold">Delete</button>
                             </form>
@@ -59,7 +59,7 @@
     </div>
 </div>
 {{-- <div class="flex flex-col items-center gap-10">
-        <a href="/admin/{{ $branchId }}/addstaff">
+        <a href="/{{ $branchId }}/admin/addstaff">
 <div class="p-2 px-5 rounded-xl bg-black text-white w-fit">Add New Staff Member</div>
 </a>
 <div>
@@ -78,10 +78,10 @@
         <div>{{ $staff['dateOfBirth'] }}</div>
         <div>{{ $staff['phoneNumber'] }}</div>
         <div class="grid grid-cols-2 col-span-2 gap-1">
-            <a href="/admin/{{ $branchId }}/editstaff/{{ $staff['id'] }}">
+            <a href="/{{ $branchId }}/admin/editstaff/{{ $staff['id'] }}">
                 <button type="button" class="bg-black text-white px-3 py-1 rounded-xl">Edit</button>
             </a>
-            <form action="/admin/{{ $branchId }}/delete/{{ $staff['id'] }}" method="post">
+            <form action="/{{ $branchId }}/admin/delete/{{ $staff['id'] }}" method="post">
                 @csrf
                 <button type="submit" class="bg-black text-white px-3 py-1 rounded-xl">Delete</button>
             </form>

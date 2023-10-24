@@ -11,14 +11,16 @@ class AddStaffController extends Controller
     protected StaffService $staffService;
     protected BranchService $branchService;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->staffService = app('staffService');
         $this->branchService = app('branchService');
     }
 
-    public function get(Request $request) {
+    public function get(Request $request)
+    {
         $branchId = $request->route('branchId');
-        
+
         $branch = $this->branchService->getBranch($branchId);
         if ($branch == null) {
             return response('Not Found', 404);
@@ -31,7 +33,8 @@ class AddStaffController extends Controller
             'staffRoles' => $roles
         ]);
     }
-    public function post(Request $request) {
+    public function post(Request $request)
+    {
         $branchId = $request->route('branchId');
 
         $req = $request->validate([
@@ -44,6 +47,6 @@ class AddStaffController extends Controller
 
         $this->staffService->createStaffAtBranch($branchId, $req);
 
-        return redirect('admin/' . (string)$branchId);
+        return redirect('/' . (string)$branchId . '/admin');
     }
 }

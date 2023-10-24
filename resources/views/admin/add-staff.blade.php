@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form class="text-white" action="/admin/{{ $branch['id'] }}/addstaff" method="POST">
+<form class="text-white" action="/{{ $branch['id'] }}/admin/addstaff" method="POST">
     @csrf
 
     @error('fullName')
