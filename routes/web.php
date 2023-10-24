@@ -45,6 +45,7 @@ Route::prefix('{branchId}')
     ->group(function () {
         Route::middleware('auth')
             ->prefix('admin')
+            ->name('admin')
             ->group(function () {
                 Route::get('', function (Request $request) {
                     $branchId = $request->route('branchId') ?? 1;
@@ -54,7 +55,7 @@ Route::prefix('{branchId}')
                 Route::get('addstaff', [AddStaffController::class, 'get']);
                 Route::post('addstaff', [AddStaffController::class, 'post']);
                 Route::get('managestaff', [ManageStaffController::class, 'get']);
-                Route::post('delete/{staffId}', [ManageStaffController::class, 'delete']);
+                Route::post('deletestaff/{staffId}', [ManageStaffController::class, 'delete']);
                 Route::get('editstaff/{staffId}', [EditStaffController::class, 'get']);
                 Route::post('editstaff/{staffId}', [EditStaffController::class, 'post']);
                 Route::get('products', [ProductController::class, 'get']);
