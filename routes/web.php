@@ -60,7 +60,7 @@ Route::middleware('auth')
                     });
             });
         Route::resource('products', ProductController::class)->only([
-            'index', 'create', 'store', 'update', 'destroy'
+            'index', 'create', 'store', 'update', 'destroy', 'edit'
         ]);
         Route::get('cashflow', [CashflowController::class, 'get'])->name('cashflow');
         Route::redirect('/', route('admin.staff.manage'))->name('dashboard');

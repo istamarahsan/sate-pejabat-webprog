@@ -51,6 +51,15 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index');
     }
 
+    public function edit(Request $request, string $id)
+    {
+        $product = $this->productService->getProduct(intval($id));
+        return view('admin.products.edit', [
+            'product' => $product,
+            'categories' => collect(ProductCategory::values())->map(fn ($e) => $e->toString())->toArray()
+        ]);
+    }
+
     /**
      * Update the specified resource in storage.
      */

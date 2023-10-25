@@ -40,7 +40,7 @@
                         <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">{{$product['price']}}</td>
                         <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">{{$product['category']->toString()}}</td>
                         <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">
-                            <a href="#" class="hover:bg-zinc-800 px-3 py-1 rounded-md transition-colors duration-200 font-bold">Edit</a>
+                            <a href="{{route('admin.products.edit', [ 'product' => $product['id'] ])}}" class="hover:bg-zinc-800 px-3 py-1 rounded-md transition-colors duration-200 font-bold">Edit</a>
                         </td>
                         <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">
                             <form method="post" action="{{route('admin.products.destroy', ['product' => $product['id']])}}">

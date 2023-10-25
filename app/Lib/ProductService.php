@@ -21,7 +21,7 @@ class ProductService
         if (count($dbResult) != 1) {
             return null;
         }
-        return $this->parseModel($dbResult);
+        return $this->parseModel($dbResult->first());
     }
 
     /**
