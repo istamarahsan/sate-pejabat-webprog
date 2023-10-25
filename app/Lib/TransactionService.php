@@ -3,6 +3,7 @@
 namespace App\Lib;
 
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class TransactionService
@@ -65,5 +66,83 @@ class TransactionService
                 ],
             )
             ->first();
+    }
+
+    /**
+     * @return array [
+     * id: int,
+     * handlerId: int,
+     * date: Carbon,
+     * notes: string,
+     * totalSale: float,
+     * items: [
+     * productId: int,
+     * productName: string,
+     * quantity: int,
+     * pricePerUnit: float,
+     * unitTotal: float
+     * ]
+     * ][]
+     */
+    public function getTransactions(): array
+    {
+        $transactionKeys = collect(["handlerId", "date", "notes", "totalSale"]);
+        $transactionDetailsKeys = collect([
+            "productId",
+            "productName",
+            "quantity",
+            "pricePerUnit",
+            "unitTotal",
+        ]);
+        return DB::table("transactions")
+            ->select([
+                "transactions.id AS transactionId",
+                "transactions.handler_id AS handlerId",
+                "transactions.notes AS notes",
+                "transactions.date AS date",
+                DB::raw(
+                    "SUM(transaction_details.quantity * transaction_details.price_per_unit) OVER (PARTITION BY transactions.id) AS totalSale",
+                ),
+                DB::raw(
+                    "SUM(transaction_details.quantity * transaction_details.price_per_unit) OVER (PARTITION BY transactions.id) AS unitTotal",
+                ),
+                "transaction_details.product_id AS productId",
+                "transaction_details.quantity AS quantity",
+                "transaction_details.price_per_unit AS pricePerUnit",
+                "products.name AS productName",
+            ])
+            ->join(
+                "transaction_details",
+                "transactions.id",
+                "=",
+                "transaction_details.transaction_id",
+            )
+            ->join("products", "transaction_details.product_id", "=", "products.id")
+            ->get()
+            ->map(fn($val, $_key) => collect(get_object_vars($val)))
+            ->groupBy("transactionId")
+            ->map(
+                fn(Collection $rowsOfTransaction, int $key) => array_merge(
+                    $rowsOfTransaction
+                        ->first()
+                        ->filter(fn($_v, $key) => $transactionKeys->contains($key))
+                        ->toArray(),
+                    [
+                        "id" => $key,
+                        "date" => Carbon::parse($rowsOfTransaction->first()->get("date")),
+                    ],
+                    [
+                        "items" => $rowsOfTransaction
+                            ->map(
+                                fn(Collection $row) => $row->filter(
+                                    fn($_v, $key) => $transactionDetailsKeys->contains($key),
+                                ),
+                            )
+                            ->toArray(),
+                    ],
+                ),
+            )
+            ->values()
+            ->toArray();
     }
 }

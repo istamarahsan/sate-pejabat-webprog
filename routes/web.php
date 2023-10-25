@@ -64,6 +64,10 @@ Route::middleware("auth.admin")
         ]);
         Route::get("cashflow", [CashflowController::class, "get"])->name("cashflow");
         Route::redirect("/", route("admin.staff.manage"))->name("dashboard");
+        Route::resource("transactions", TransactionController::class)->only("index");
+        Route::get("transactions/debug", function () {
+            return dd(app("transactionService")->getTransactions());
+        });
     });
 
 Route::middleware("auth.admin")

@@ -17,6 +17,19 @@ class TransactionController extends Controller
         $this->transactionService = app("transactionService");
     }
 
+    public function index(Request $request)
+    {
+        return $this->adminIndex($request);
+    }
+
+    public function adminIndex(Request $request)
+    {
+        $transactions = $this->transactionService->getTransactions();
+        return view("admin.view-transactions", [
+            "transactions" => $transactions,
+        ]);
+    }
+
     public function staffCreate(Request $request)
     {
         $products = $this->productService->getAllProducts();
