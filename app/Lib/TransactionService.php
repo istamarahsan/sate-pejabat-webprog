@@ -81,8 +81,8 @@ class TransactionService
      * quantity: int,
      * pricePerUnit: float,
      * unitTotal: float
-     * ]
      * ][]
+     * ]
      */
     public function getTransactions(): array
     {
