@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Lib\ProductCategory;
 use App\Lib\ProductService;
 use Illuminate\Http\Request;
 
@@ -14,13 +15,63 @@ class ProductController extends Controller
         $this->productService = app('productService');
     }
 
-    public function get(Request $request)
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
-
         $products = $this->productService->getAllProducts();
-
-        return view('admin/products', [
-            'products' => $products,
+        return view('admin.products.index', [
+            'products' => $products
         ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('admin.products.create', [
+            'categories' => collect(ProductCategory::values())->map(fn ($e) => $e->toString())->toArray()
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'string|required',
+            'price' => 'numeric|required',
+            'category' => 'string|required'
+        ]);
+        $data['category'] = ProductCategory::parse($data['category']);
+        $this->productService->createProduct($data);
+        return redirect()->route('admin.products.index');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $data = $request->validate([
+            'name' => 'string|required',
+            'price' => 'numeric|required',
+            'category' => 'string|required'
+        ]);
+        $data['category'] = ProductCategory::parse($data['category']);
+        $this->productService->updateProduct($id, $data);
+        return redirect()->route('admin.products.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $this->productService->deleteProduct($id);
+        return redirect()->route('admin.products.index');
     }
 }

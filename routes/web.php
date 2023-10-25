@@ -33,38 +33,37 @@ Route::prefix('auth')
 
 Route::middleware('auth')
     ->prefix('admin')
-    ->name('admin')
+    ->name('admin.')
     ->group(function () {
-        Route::name('.reviews')->group(function () {
+        Route::name('reviews')->group(function () {
             Route::get('reviews', [ReviewsController::class, 'get']);
         });
-        Route::name('.staff')
+        Route::name('staff.')
             ->group(function () {
-                Route::name('.add')
+                Route::name('add')
                     ->group(function () {
                         Route::get('addstaff', [AddStaffController::class, 'get']);
                         Route::post('addstaff', [AddStaffController::class, 'post']);
                     });
-                Route::name('.manage')
+                Route::name('manage')
                     ->group(function () {
                         Route::get('managestaff', [ManageStaffController::class, 'get']);
                     });
-                Route::name('.delete')
+                Route::name('delete')
                     ->group(function () {
                         Route::post('deletestaff/{staffId}', [ManageStaffController::class, 'delete']);
                     });
-                Route::name('.edit')
+                Route::name('edit')
                     ->group(function () {
                         Route::get('editstaff/{staffId}', [EditStaffController::class, 'get']);
                         Route::post('editstaff/{staffId}', [EditStaffController::class, 'post']);
                     });
             });
-        Route::name('.products')
-            ->group(function () {
-                Route::get('products', [ProductController::class, 'get']);
-            });
-        Route::get('cashflow', [CashflowController::class, 'get']);
-        Route::redirect('/', route('admin.staff.manage'));
+        Route::resource('products', ProductController::class)->only([
+            'index', 'create', 'store', 'update', 'destroy'
+        ]);
+        Route::get('cashflow', [CashflowController::class, 'get'])->name('cashflow');
+        Route::redirect('/', route('admin.staff.manage'))->name('dashboard');
     });
 
 Route::prefix('review')

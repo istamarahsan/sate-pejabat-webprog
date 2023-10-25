@@ -18,7 +18,7 @@
             TEST
         </button>
         <div class="text-zinc-500 font-bold flex items-center">
-            <a href="{{route('admin')}}">
+            <a href="{{route('admin.dashboard')}}">
                 <button class="ml-3 rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
                     Dashboard
                 </button>
