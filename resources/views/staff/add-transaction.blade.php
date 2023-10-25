@@ -50,7 +50,9 @@
             @foreach ($products as $product)
                 {{ $product['id'] }}: {
                     id: {{ $product['id'] }},
-                    name: '{{ $product['name'] }}'
+                    name: '{{ $product['name'] }}',
+                    price: {{ $product['price'] }},
+                    category: '{{ $product['category']->toString() }}'
                 },
             @endforeach
         }

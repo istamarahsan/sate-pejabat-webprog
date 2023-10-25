@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Lib\ProductService;
+use App\Lib\TransactionService;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
     protected ProductService $productService;
+    protected TransactionService $transactionService;
 
     public function __construct()
     {
         $this->productService = app("productService");
+        $this->transactionService = app("transactionService");
     }
 
     public function staffCreate(Request $request)
@@ -23,6 +26,12 @@ class TransactionController extends Controller
     }
     public function staffStore(Request $request)
     {
-        return dd($request->all());
+        $userId = auth()->user()->id;
+        $quantities = collect($request->all())
+            ->filter(fn($_val, $key) => strpos($key, "item-") === 0)
+            ->mapWithKeys(fn($val, $key) => [explode("-", $key)[1] => $val])
+            ->toArray();
+        $result = $this->transactionService->recordTransaction($userId, $quantities);
+        return redirect()->route("staff.createtransaction");
     }
 }
