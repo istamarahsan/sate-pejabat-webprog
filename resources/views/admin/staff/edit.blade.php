@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<form class="text-black" action="{{route('admin.staff.edit', ['staffId' => $user['id']])}}" method="POST">
+<form class="text-black" action="{{route('admin.staff.update', ['staff' => $user['id']])}}" method="POST">
     @csrf
-
+    @method('PUT')
     <div class="w-full grid grid-cols-2">
         <label class="" for="fullName">Staff Name:</label>
         <input value="{{ $user['name'] }}" type="text" id="fullName" name="fullName" required>

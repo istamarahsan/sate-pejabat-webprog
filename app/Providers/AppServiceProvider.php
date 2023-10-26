@@ -6,7 +6,7 @@ use App\Lib\CashflowService;
 use App\Lib\StaffService;
 use App\Lib\ReviewService;
 use App\Lib\ProductService;
-
+use App\Lib\TransactionService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,18 +16,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton('staffService', function () {
+        $this->app->singleton("staffService", function () {
             return new StaffService();
         });
-        $this->app->singleton('reviewService', function () {
+        $this->app->singleton("reviewService", function () {
             return new ReviewService();
         });
-        $this->app->singleton('productService', function () {
+        $this->app->singleton("productService", function () {
             return new ProductService();
         });
-        $this->app->singleton('cashflowService', function () {
+        $this->app->singleton("cashflowService", function () {
             return new CashflowService();
         });
+        $this->app->singleton("transactionService", fn() => new TransactionService());
     }
 
     /**

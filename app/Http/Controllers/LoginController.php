@@ -48,6 +48,16 @@ class LoginController extends Controller
         return back();
     }
 
+    public function logout(Request $request) {
+        Auth::logout();
+ 
+        $request->session()->invalidate();
+     
+        $request->session()->regenerateToken();
+
+        return redirect("/");
+    }
+
     private function parseCredentials($credentials) {
         $type = null;
         if (substr($credentials['userId'], 0, 1) == 'X') {
