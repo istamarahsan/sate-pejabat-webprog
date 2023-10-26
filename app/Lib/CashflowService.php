@@ -14,46 +14,36 @@ class CashflowService
      * salesTotal: float
      * ]
      */
-    public function getCashflowSummary(CarbonPeriod $period): array
+    public function getCashflowSummary(CarbonPeriod | null $period = null): array
     {
-        return DB::table('transactions')
-            ->selectRaw(
-                '
-                products.category AS category, 
-                SUM(transaction_details.quantity) AS quantitySold, 
-                SUM(transaction_details.quantity * transaction_details.price_per_unit) AS salesTotal'
-            )
-            ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
-            ->join('products', 'transaction_details.product_id', '=', 'products.id')
-            ->whereBetween(
+        $queryPart1 = DB::table('transactions')
+        ->selectRaw(
+            '
+            products.category AS category, 
+            SUM(transaction_details.quantity) AS quantitySold, 
+            SUM(transaction_details.quantity * transaction_details.price_per_unit) AS salesTotal
+            '
+        )
+        ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
+        ->join('products', 'transaction_details.product_id', '=', 'products.id');
+
+        if ($period != null) {
+            $queryPart1 = $queryPart1->whereBetween(
                 'transactions.date',
                 [
                     $period->getStartDate()->toDateString(),
                     $period->getEndDate()->toDateString()
                 ]
-            )
+                );
+        }
+
+        return $queryPart1
             ->groupBy('products.category')
             ->get()
             ->map(fn ($e) => get_object_vars($e))
             ->map(fn ($e) => array_merge($e, [
-                'category' => $this->parseProductCategory($e['category'])
+                'category' => ProductCategory::parse($e['category'])
             ]))
             ->toArray();
-    }
-
-    private function parseProductCategory($in)
-    {
-        switch (strtolower($in)) {
-            case 'food':
-                return ProductCategory::Food;
-            case 'beverage':
-                return ProductCategory::Beverage;
-            case 'snack':
-                return ProductCategory::Snack;
-            case 'other':
-                return ProductCategory::Other;
-            default:
-                return null;
-        }
     }
 }
