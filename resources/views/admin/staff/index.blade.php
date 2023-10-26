@@ -2,10 +2,10 @@
 
 @section('child-content')
     <div class="mx-2 my-2 flex flex-col items-start">
-        <h1 class="text-3xl font-black flex flex-grow w-full items-baseline">Manage Products
-            <a class="ml-auto" href="{{ route('admin.products.create') }}">
+        <h1 class="text-3xl font-black flex flex-grow w-full items-baseline">Manage Staff
+            <a class="ml-auto" href="{{ route('admin.staff.add') }}">
                 <div class="ml-2 py-1 px-2 rounded-lg text-sm text-center align-middle bg-black text-white hover:bg-zinc-700 transition-colors duration-200">
-                    New Product
+                    New Staff
                 </div>
             </a>
         </h1>
@@ -15,9 +15,9 @@
                     <tr>
                         <th class="font-thin px-4 py-2">Id</th>
                         <th class="font-thin px-4">Name</th>
-                        <th class="font-thin px-4 py-2 flex flex-row items-end">Price <p class="ml-1 text-xs text-zinc-400">(Rp)</p>
-                        </th>
-                        <th class="font-thin px-4">Category</th>
+                        <th class="font-thin px-4">Position</th>
+                        <th class="font-thin px-4">Date of Birth</th>
+                        <th class="font-thin px-4">Phone Number</th>
                         <th class="font-thin px-4">
                             <p class="px-3">Actions</p>
                         </th>
@@ -25,32 +25,32 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (count($products) <= 0)
+                    @if (count($staffMembers) <= 0)
                         <tr>
-                            <td colspan="6" class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">Nobody but us chickens!</td>
+                            <td colspan="7" class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">Nobody but us chickens!</td>
                         </tr>
                     @endif
-                    @foreach ($products as $product)
+                    @foreach ($staffMembers as $staff)
                         <tr>
-                            <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900">{{ $product['id'] }}</td>
-                            <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">{{ $product['name'] }}</td>
-                            <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">{{ $product['price'] }}</td>
-                            <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">{{ $product['category']->toString() }}</td>
+                            <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900">{{ $staff['id'] }}</td>
+                            <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">{{ $staff['name'] }}</td>
+                            <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">{{ $staff['roleName'] }}</td>
+                            <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">{{ $staff['dateOfBirth'] }}</td>
+                            <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">{{ $staff['phoneNumber'] }}</td>
                             <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">
-                                <a href="{{ route('admin.products.edit', ['product' => $product['id']]) }}" class="hover:bg-zinc-800 px-3 py-1 rounded-md transition-colors duration-200 font-bold">Edit</a>
+                                <a href="{{ route('admin.staff.edit', ['staffId' => $staff['id']]) }}" class="hover:bg-zinc-800 px-3 py-1 rounded-md transition-colors duration-200 font-bold">Edit</a>
                             </td>
                             <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">
-                                <form method="post" action="{{ route('admin.products.destroy', ['product' => $product['id']]) }}">
+                                <form action="{{ route('admin.staff.delete', ['staffId' => $staff['id']]) }}" method="post">
                                     @csrf
-                                    @method('DELETE')
                                     <button type="submit" class="hover:bg-zinc-800 px-3 py-1 rounded-md transition-colors duration-200 font-bold">Delete</button>
                                 </form>
+
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-
     </div>
 @endsection

@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('content')
+@section('child-content')
     <div class="mx-2 my-2 flex flex-col items-start">
         <h1 class="text-3xl font-black flex flex-grow w-full items-baseline">Transactions</h1>
         <div class="bg-zinc-800 rounded-md py-2 mt-4">
@@ -17,8 +17,7 @@
                 <tbody>
                     @if (count($transactions) <= 0)
                         <tr>
-                            <td
-                                class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">
+                            <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">
                                 Nobody but us chickens!</td>
                             <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900"></td>
                             <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900"></td>

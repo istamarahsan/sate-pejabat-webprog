@@ -104,7 +104,7 @@ class TransactionService
                     "SUM(transaction_details.quantity * transaction_details.price_per_unit) OVER (PARTITION BY transactions.id) AS totalSale",
                 ),
                 DB::raw(
-                    "SUM(transaction_details.quantity * transaction_details.price_per_unit) OVER (PARTITION BY transactions.id) AS unitTotal",
+                    "(transaction_details.quantity * transaction_details.price_per_unit) AS unitTotal",
                 ),
                 "transaction_details.product_id AS productId",
                 "transaction_details.quantity AS quantity",
