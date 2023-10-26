@@ -72,6 +72,6 @@ Route::middleware("auth.admin")
 Route::prefix("review")
     ->name("review")
     ->group(function () {
-        Route::get("/", [AddReviewController::class, "get"]);
-        Route::post("/", [AddReviewController::class, "post"]);
+        Route::get("/", [ReviewsController::class, "create"]);
+        Route::post("/", [ReviewsController::class, "store"]);
     });
