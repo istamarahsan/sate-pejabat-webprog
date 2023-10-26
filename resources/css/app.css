@@ -5,3 +5,11 @@
 body {
     font-family: 'Lexend', sans-serif;
 }
+
+select {
+    background-color: gray;
+}
+
+input {
+    background-color: gray;
+}
