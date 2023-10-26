@@ -33,8 +33,14 @@
             </a>
         </div>
         <button class="ml-auto text-white font-normal text-sm rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
-            Welcome, ahsan
+            Welcome, {{"X"}}{{auth()->user()->id}}
         </button>
+        <form action="{{route('auth.logout')}}" method="POST">
+            @csrf
+            <button class="ml-auto text-white font-normal text-sm rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
+                Logout
+            </button>
+        </form>
     </header>
     @yield("content")
     @livewireScripts

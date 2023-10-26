@@ -26,10 +26,11 @@ use Illuminate\Support\Facades\Route;
 Route::redirect("/", "review");
 
 Route::prefix("auth")
-    ->name("login")
+    ->name("auth.")
     ->group(function () {
-        Route::get("login", [LoginController::class, "get"]);
-        Route::post("login", [LoginController::class, "authenticate"]);
+        Route::get("login", [LoginController::class, "get"])->name("login");
+        Route::post("login", [LoginController::class, "authenticate"])->name("login");
+        Route::post("logout", [LoginController::class, "logout"])->name("logout");
     });
 
 Route::middleware("auth.admin")
