@@ -1,10 +1,12 @@
 {
     "2024-06-20" : {
-        "food" : {
+        "Food" : {
+            "category" : "Food",
             "sales" : 1,
-            "revenue" : 2323
+            "revenue" : 2323,
+            "date": "2024-06-20"
         },
-        "beverage" : {
+        "Beverage" : {
 
         }
     }, 

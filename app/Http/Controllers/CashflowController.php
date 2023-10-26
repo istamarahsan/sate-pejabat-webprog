@@ -12,6 +12,15 @@ enum CashflowReportType: string
 {
     case Day = "day";
     case Category = "category";
+
+    public function toString(): string {
+        switch ($this) {
+            case CashflowReportType::Day:
+                return "Day";
+            case CashflowReportType::Category:
+                return "Category";
+        }
+    }
 }
 
 class CashflowController extends Controller
@@ -56,7 +65,7 @@ class CashflowController extends Controller
             ? new CarbonPeriod($data["from"], $data["until"])
             : null;
 
-        $cashflowSummary = $data["type"] == CashflowReportType::Category
+        $cashflowSummary = $data["type"] === strtolower(CashflowReportType::Category->toString())
             ? $this->cashflowService->getCashflowSummaryByCategory($periodOrNull)
             : $this->cashflowService->getCashflowSummaryByDay($periodOrNull);
         return response()->json($cashflowSummary);

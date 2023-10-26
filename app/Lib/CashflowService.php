@@ -13,8 +13,8 @@ class CashflowService
             ->selectRaw(
                 '
             products.category AS category, 
-            SUM(transaction_details.quantity) AS quantitySold, 
-            SUM(transaction_details.quantity * transaction_details.price_per_unit) AS salesTotal
+            SUM(transaction_details.quantity) AS sales, 
+            SUM(transaction_details.quantity * transaction_details.price_per_unit) AS revenue
             '
             )
             ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
@@ -37,7 +37,7 @@ class CashflowService
             ->map(fn ($e) => array_merge($e, [
                 'category' => ProductCategory::parse($e['category'])->toString()
             ]))
-            ->mapWithKeys(fn ($val, $key) => [strtolower($val['category']) => $val])
+            ->mapWithKeys(fn ($val, $key) => [$val['category'] => $val])
             ->toArray();
     }
 
@@ -48,8 +48,8 @@ class CashflowService
             ->selectRaw(
                 '
             products.category AS category, 
-            SUM(transaction_details.quantity) AS quantitySold, 
-            SUM(transaction_details.quantity * transaction_details.price_per_unit) AS salesTotal,
+            SUM(transaction_details.quantity) AS sales, 
+            SUM(transaction_details.quantity * transaction_details.price_per_unit) AS revenue,
             transactions.date AS `date`
             '
             )
