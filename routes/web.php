@@ -49,13 +49,20 @@ Route::middleware("auth.admin")
             "destroy",
             "edit",
         ]);
-        Route::get("cashflow", [CashflowController::class, "get"])->name("cashflow");
         Route::redirect("/", route("admin.staff.index"))->name("dashboard");
 
         Route::resource("transactions", TransactionController::class)->only("index");
         Route::get("transactions/debug", function () {
             return dd(app("transactionService")->getTransactions());
         });
+
+        Route::get("cashflow", [CashflowController::class, "index"])->name("cashflow");
+
+        Route::prefix("api")
+            ->name("api.")
+            ->group(function () {
+                Route::get("cashflow", [CashflowController::class, "get"])->name("cashflow");
+            });
     });
 
 Route::middleware("auth.admin")
