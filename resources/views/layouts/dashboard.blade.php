@@ -7,7 +7,7 @@
                 <div class="h-1/2 border border-t-0 border-x-0 border-zinc-800"></div>
             </div> --}}
             <div class="flex flex-col">
-                <a href="{{ route('admin.staff.manage') }}" class="py-3 px-5 mt-2 w-full transition-colors duration-200 text-left text-sm font-semibold text-zinc-100 {{ Request::is('admin/*/manage-staff') ? 'bg-zinc-800 hover:bg-zinc-600' : 'hover:bg-zinc-800' }}">
+                <a href="{{ route('admin.staff.index') }}" class="py-3 px-5 mt-2 w-full transition-colors duration-200 text-left text-sm font-semibold text-zinc-100 {{ Request::is('admin/*/manage-staff') ? 'bg-zinc-800 hover:bg-zinc-600' : 'hover:bg-zinc-800' }}">
                     Staffs
                 </a>
                 <a href="{{ route('admin.products.index') }}" class="py-3 px-5 mt-2 w-full transition-colors duration-200 text-left text-sm font-semibold text-zinc-100 {{ Request::is('admin/*/products') ? 'bg-zinc-800 hover:bg-zinc-600' : 'hover:bg-zinc-800' }}">

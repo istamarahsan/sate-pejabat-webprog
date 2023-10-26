@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form class="text-white" action="{{route('admin.staff.add')}}" method="POST">
+<form class="text-white" action="{{route('admin.staff.store')}}" method="POST">
     @csrf
 
     @error('fullName')

@@ -8,6 +8,7 @@ use App\Http\Controllers\CashflowController;
 use App\Http\Controllers\EditStaffController;
 use App\Http\Controllers\ManageStaffController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,22 +39,9 @@ Route::middleware("auth.admin")
         Route::name("reviews")->group(function () {
             Route::get("reviews", [ReviewsController::class, "get"]);
         });
-        Route::name("staff.")->group(function () {
-            Route::name("add")->group(function () {
-                Route::get("addstaff", [AddStaffController::class, "get"]);
-                Route::post("addstaff", [AddStaffController::class, "post"]);
-            });
-            Route::name("manage")->group(function () {
-                Route::get("managestaff", [ManageStaffController::class, "get"]);
-            });
-            Route::name("delete")->group(function () {
-                Route::post("deletestaff/{staffId}", [ManageStaffController::class, "delete"]);
-            });
-            Route::name("edit")->group(function () {
-                Route::get("editstaff/{staffId}", [EditStaffController::class, "get"]);
-                Route::post("editstaff/{staffId}", [EditStaffController::class, "post"]);
-            });
-        });
+        Route::resource('staff', StaffController::class)->only([
+            "index", "create", "store", "edit", "update", "destroy"
+        ]);
         Route::resource("products", ProductController::class)->only([
             "index",
             "create",
@@ -63,7 +51,7 @@ Route::middleware("auth.admin")
             "edit",
         ]);
         Route::get("cashflow", [CashflowController::class, "get"])->name("cashflow");
-        Route::redirect("/", route("admin.staff.manage"))->name("dashboard");
+        Route::redirect("/", route("admin.staff.index"))->name("dashboard");
 
         Route::resource("transactions", TransactionController::class)->only("index");
         Route::get("transactions/debug", function () {
