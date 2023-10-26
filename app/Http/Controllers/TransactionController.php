@@ -25,7 +25,7 @@ class TransactionController extends Controller
     public function adminIndex(Request $request)
     {
         $transactions = $this->transactionService->getTransactions();
-        return view("admin.view-transactions", [
+        return view("admin.transactions", [
             "transactions" => $transactions,
         ]);
     }
