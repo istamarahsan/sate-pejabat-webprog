@@ -1,0 +1,10 @@
+{
+    "food" : {
+        "category" : "food",
+        "sales" : 1,
+        "revenue" : 2323
+    },
+    "beverage" : {
+        
+    }
+}
