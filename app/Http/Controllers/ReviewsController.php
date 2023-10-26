@@ -15,10 +15,10 @@ class ReviewsController extends Controller
         $this->reviewService = app('reviewService');
     }
 
-    public function get(Request $request)
+    public function index(Request $request)
     {
         $reviews = $this->reviewService->getReviews();
-        return view('admin.view-reviews', [
+        return view('admin.reviews.index', [
             'reviews' => $reviews,
         ]);
     }

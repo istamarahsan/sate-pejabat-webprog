@@ -26,7 +26,7 @@
             <button class="ml-2 rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
                 Manage
             </button>
-            <a href="{{route('admin.reviews')}}">
+            <a href="{{route('admin.reviews.index')}}">
                 <button class="ml-2 rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
                     Reviews
                 </button>

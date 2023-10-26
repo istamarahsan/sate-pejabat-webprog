@@ -36,9 +36,7 @@ Route::middleware("auth.admin")
     ->prefix("admin")
     ->name("admin.")
     ->group(function () {
-        Route::name("reviews")->group(function () {
-            Route::get("reviews", [ReviewsController::class, "get"]);
-        });
+        Route::resource("reviews", ReviewsController::class)->only(['index']);
         Route::resource('staff', StaffController::class)->only([
             "index", "create", "store", "edit", "update", "destroy"
         ]);
