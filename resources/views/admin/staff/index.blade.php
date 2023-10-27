@@ -18,10 +18,8 @@
                         <th class="font-thin px-4">Position</th>
                         <th class="font-thin px-4">Date of Birth</th>
                         <th class="font-thin px-4">Phone Number</th>
-                        <th class="font-thin px-4">
-                            <p class="px-3">Actions</p>
-                        </th>
-                        <th class="font-thin px-4"> </th>
+                        <th class="font-thin px-4"></th>
+                        <th class="font-thin px-4"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,15 +36,14 @@
                             <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">{{ $staff['dateOfBirth'] }}</td>
                             <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">{{ $staff['phoneNumber'] }}</td>
                             <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">
-                                <a href="{{ route('admin.staff.edit', ['staff' => $staff['id']]) }}" class="hover:bg-zinc-800 px-3 py-1 rounded-md transition-colors duration-200 font-bold">Edit</a>
+                                <a href="{{ route('admin.staff.edit', ['staff' => $staff['id']]) }}" class="hover:bg-zinc-800 bg-zinc-950 px-3 py-1 rounded-md transition-colors duration-200 font-bold">Edit</a>
                             </td>
                             <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">
                                 <form action="{{ route('admin.staff.destroy', ['staff' => $staff['id']]) }}" method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="hover:bg-zinc-800 px-3 py-1 rounded-md transition-colors duration-200 font-bold">Delete</button>
+                                    <button type="submit" onclick="return confirm('Are you sure to delete {{ $staff['name'] }} ?')" class="hover:bg-zinc-800 bg-zinc-950 px-3 py-1 rounded-md transition-colors duration-200 font-bold">Delete</button>
                                 </form>
-
                             </td>
                         </tr>
                     @endforeach

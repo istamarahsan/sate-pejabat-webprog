@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Lib\StaffService;
 use Illuminate\Http\Request;
+use Psy\Readline\Hoa\Console;
 
 class StaffController extends Controller
 {
     protected StaffService $staffService;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->staffService = app('staffService');
     }
 
