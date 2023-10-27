@@ -1,4 +1,5 @@
 @extends('layouts.dashboard')
+
 @section('child-content')
     <script>
         document.addEventListener("DOMContentLoaded", (e) => {
