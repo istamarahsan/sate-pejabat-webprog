@@ -1,4 +1,4 @@
-@extends('layouts.staff')
+@extends('layouts.dashboard')
 
 @section('content')
     <div class="my-2 flex flex-col items-center text-center w-screen">
