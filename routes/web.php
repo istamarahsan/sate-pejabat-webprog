@@ -70,7 +70,7 @@ Route::middleware("auth.admin")
             });
     });
 
-Route::middleware("auth.admin")
+Route::middleware("auth.staff")
     ->prefix("staff")
     ->name("staff.")
     ->group(function () {
