@@ -12,8 +12,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/flowbite.min.js'])
 </head>
 
-<body class="bg-zinc-900 min-h-screen min-w-screen text-white flex flex-col p-5">
-    @yield("content")
+<body class="min-h-screen min-w-screen flex flex-col p-5">
+    @yield('content')
     @livewireScripts
 </body>
 

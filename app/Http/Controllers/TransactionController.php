@@ -37,6 +37,7 @@ class TransactionController extends Controller
             "products" => $products,
         ]);
     }
+
     public function staffStore(Request $request)
     {
         $userId = auth()->user()->id;
@@ -45,6 +46,12 @@ class TransactionController extends Controller
             ->mapWithKeys(fn($val, $key) => [explode("-", $key)[1] => $val])
             ->toArray();
         $result = $this->transactionService->recordTransaction($userId, $quantities);
-        return redirect()->route("staff.createtransaction");
+
+        $total = 0;
+        foreach ($quantities as $index => $value) {
+            $total = $total + $value;
+        }
+
+        return redirect()->back()->with("quantity", $total)->with("success", true);
     }
 }

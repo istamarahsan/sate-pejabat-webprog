@@ -26,7 +26,7 @@ class TransactionService
         if (count($items) === 0) {
             return null;
         }
-        $dateHandled = Carbon::now();
+        $dateHandled = Carbon::now()->startOfDay();
         $transactionId = DB::table("transactions")->insertGetId([
             "handler_id" => $handlerId,
             "notes" => $notes,

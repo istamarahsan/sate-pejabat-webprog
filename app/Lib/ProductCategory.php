@@ -2,12 +2,12 @@
 
 namespace App\Lib;
 
-enum ProductCategory
+enum ProductCategory: string
 {
-    case Food;
-    case Beverage;
-    case Snack;
-    case Other;
+    case Food = "food";
+    case Beverage = "beverage";
+    case Snack = "snack";
+    case Other = "other";
 
     public function toString(): string
     {

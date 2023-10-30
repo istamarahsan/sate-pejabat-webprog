@@ -6,10 +6,12 @@ body {
     font-family: 'Lexend', sans-serif;
 }
 
-select {
-    background-color: gray;
-}
+@layer base {
 
-input {
-    background-color: gray;
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
 }

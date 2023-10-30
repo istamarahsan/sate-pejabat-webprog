@@ -3,19 +3,71 @@
 namespace App\Http\Controllers;
 
 use App\Lib\CashflowService;
+use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Enum;
+
+enum CashflowReportType: string
+{
+    case Day = "day";
+    case Category = "category";
+
+    public function toString(): string {
+        switch ($this) {
+            case CashflowReportType::Day:
+                return "Day";
+            case CashflowReportType::Category:
+                return "Category";
+        }
+    }
+}
 
 class CashflowController extends Controller
 {
+
     protected CashflowService $cashflowService;
+
     public function __construct()
     {
         $this->cashflowService = app('cashflowService');
     }
+
+    public function index(Request $request)
+    {
+        return view('admin.cashflow');
+    }
+
     public function get(Request $request)
     {
-        $cashflowSummary = $this->cashflowService->getCashflowSummary(new CarbonPeriod('2023-01-01', '2023-12-01'));
-        return dd($cashflowSummary);
+        $data = $request->validate([
+            "from" => "date",
+            "until" => "date",
+            "type" => [new Enum(CashflowReportType::class)]
+        ]);
+        if (!array_key_exists("type", $data)) {
+            $data["type"] = CashflowReportType::Category;
+        }
+        if (array_key_exists("from", $data) && array_key_exists("until", $data)) {
+            $from = Carbon::parse($data["from"]);
+            $until = Carbon::parse($data["until"]);
+
+            if ($from->isBefore($until)) {
+                $data["from"] = $from;
+                $data["until"] = $until;
+            } else {
+                unset($data["from"]);
+                unset($data["until"]);
+            }
+        }
+
+        $periodOrNull = array_key_exists("from", $data) && array_key_exists("until", $data)
+            ? new CarbonPeriod($data["from"], $data["until"])
+            : null;
+
+        $cashflowSummary = $data["type"] === strtolower(CashflowReportType::Category->toString())
+            ? $this->cashflowService->getCashflowSummaryByCategory($periodOrNull)
+            : $this->cashflowService->getCashflowSummaryByDay($periodOrNull);
+        return response()->json($cashflowSummary);
     }
 }

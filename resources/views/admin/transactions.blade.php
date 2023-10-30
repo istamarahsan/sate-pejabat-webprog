@@ -8,21 +8,20 @@
                 <thead>
                     <tr>
                         <th class="font-thin px-4 py-2">Id</th>
-                        <th class="font-thin px-4 py-2">Handler</th>
+                        <th class="font-thin px-4 py-2">Staff Id</th>
                         <th class="font-thin px-4">Date</th>
-                        <th class="font-thin px-4">Total Sale</th>
+                        <th class="font-thin px-4 py-2 flex flex-row items-end">
+                            Total Sale
+                            <p class="ml-1 text-xs text-zinc-400">(Rp)</p>
+                        </th>
                         <th class="font-thin px-4">Notes</th>
                     </tr>
                 </thead>
                 <tbody>
                     @if (count($transactions) <= 0)
                         <tr>
-                            <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">
+                            <td colspan="6" class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">
                                 Nobody but us chickens!</td>
-                            <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900"></td>
-                            <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900"></td>
-                            <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900"></td>
-                            <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900"></td>
                         </tr>
                     @endif
                     @foreach ($transactions as $transaction)
@@ -34,7 +33,7 @@
                             <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">
                                 {{ $transaction['date']->toDateString() }}</td>
                             <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">
-                                {{ $transaction['totalSale'] }}</td>
+                                {{ number_format($transaction['totalSale']) }}</td>
                             <td class="px-4 border border-zinc-600 border-x-0 bg-zinc-900">
                                 {{ $transaction['notes'] ?? '-' }}</td>
                         </tr>

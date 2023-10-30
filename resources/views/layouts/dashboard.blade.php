@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <div class="flex flex-grow">
@@ -15,6 +15,9 @@
                 </a>
                 <a href="{{ route('admin.transactions.index') }}" class="py-3 px-5 mt-2 w-full transition-colors duration-200 text-left text-sm font-semibold text-zinc-100 {{ Request::is('admin/*/sales') ? 'bg-zinc-800 hover:bg-zinc-600' : 'hover:bg-zinc-800' }}">
                     Sales
+                </a>
+                <a href="{{ route('admin.cashflow') }}" class="py-3 px-5 mt-2 w-full transition-colors duration-200 text-left text-sm font-semibold text-zinc-100 {{ Request::is('admin/*/sales') ? 'bg-zinc-800 hover:bg-zinc-600' : 'hover:bg-zinc-800' }}">
+                    Cashflow
                 </a>
             </div>
         </div>

@@ -10,7 +10,7 @@ class AuthorizeStaff extends Authenticate
     {
         $this->authenticate($request, $guards);
 
-        if (auth()->user()->user_type != 'staff') {
+        if (auth()->user()->user_type != 'staff' && auth()->user()->user_type != 'admin') {
             return response('Unauthorized', 401);
         } else {
             return $next($request);
