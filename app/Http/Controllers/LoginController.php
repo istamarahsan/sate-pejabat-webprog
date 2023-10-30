@@ -13,8 +13,8 @@ class UserId implements ValidationRule
 {
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (strlen($value) < 2 || !(strpos($value, 'X') == 0 || strpos($value, 'S') == 0)) {
-            $fail('uhoh');
+        if (strlen($value) < 2 || !(strpos($value, "X") == 0 || strpos($value, "S") == 0)) {
+            $fail("uhoh");
         }
     }
 }
@@ -23,7 +23,7 @@ class LoginController extends Controller
 {
     public function get()
     {
-        return view('auth.login');
+        return view("auth.login");
     }
 
     /**
@@ -32,21 +32,21 @@ class LoginController extends Controller
     public function authenticate(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
-            'userId' => ['required', 'string', new UserId],
-            'password' => ['required'],
+            "userId" => ["required", "string", new UserId()],
+            "password" => ["required"],
         ]);
 
         $parsedCredentials = $this->parseCredentials($credentials);
 
         if (
             Auth::attempt([
-                'id' => $parsedCredentials['id'],
-                'password' => $parsedCredentials['password']
+                "id" => $parsedCredentials["id"],
+                "password" => $parsedCredentials["password"],
             ])
         ) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/');
+            return redirect()->intended("/");
         }
 
         return back();
@@ -60,24 +60,23 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect("/admin");
+        return redirect("/");
     }
 
     private function parseCredentials($credentials)
     {
         $type = null;
-        if (substr($credentials['userId'], 0, 1) == 'X') {
-            $type = 'admin';
+        if (substr($credentials["userId"], 0, 1) == "X") {
+            $type = "admin";
         }
-        if (substr($credentials['userId'], 0, 1) == 'S') {
-            $type = 'staff';
+        if (substr($credentials["userId"], 0, 1) == "S") {
+            $type = "staff";
         }
-        $id = intval(substr($credentials['userId'], 1));
-        return
-            [
-                'id' => $id,
-                'type' => $type,
-                'password' => $credentials['password']
-            ];
+        $id = intval(substr($credentials["userId"], 1));
+        return [
+            "id" => $id,
+            "type" => $type,
+            "password" => $credentials["password"],
+        ];
     }
 }
