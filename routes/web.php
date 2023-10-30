@@ -39,7 +39,12 @@ Route::middleware("auth.admin")
     ->group(function () {
         Route::resource("reviews", ReviewsController::class)->only(['index']);
         Route::resource('staff', StaffController::class)->only([
-            "index", "create", "store", "edit", "update", "destroy"
+            "index",
+            "create",
+            "store",
+            "edit",
+            "update",
+            "destroy"
         ]);
         Route::resource("products", ProductController::class)->only([
             "index",
@@ -69,12 +74,18 @@ Route::middleware("auth.admin")
     ->prefix("staff")
     ->name("staff.")
     ->group(function () {
+        Route::get("/", function () {
+            return redirect()->route("staff.home");
+        });
         Route::get("newtransaction", [TransactionController::class, "staffCreate"])->name(
             "createtransaction",
         );
         Route::post("newtransaction", [TransactionController::class, "staffStore"])->name(
             "storetransaction",
         );
+        Route::get("home", function () {
+            return view("staff/home");
+        })->name('home');
     });
 
 Route::prefix("review")
