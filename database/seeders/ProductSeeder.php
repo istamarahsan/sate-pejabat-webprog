@@ -14,17 +14,17 @@ class ProductSeeder extends Seeder
     {
         DB::table("products")->insert([
             [
-                "name" => "Serigala Cipularang",
+                "name" => "Product 1",
                 "price" => 69421,
-                "category" => "OTHER",
+                "category" => "FOOD",
             ],
             [
-                "name" => "Serigala Cipularang 2",
+                "name" => "Product 2",
                 "price" => 69422,
-                "category" => "OTHER",
+                "category" => "BEVERAGE",
             ],
             [
-                "name" => "Serigala Cipularang 3",
+                "name" => "Product 3",
                 "price" => 69423,
                 "category" => "OTHER",
             ],
