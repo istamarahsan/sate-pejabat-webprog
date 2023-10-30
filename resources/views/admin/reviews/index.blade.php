@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.staff')
 
 @section('content')
     <div class="my-2 flex flex-col items-center text-center w-screen">
@@ -18,21 +18,40 @@
                 </tr>
                 @if (count($reviews) <= 0)
                     <tr>
-                        <td colspan="9" class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">
+                        <td colspan="9"
+                            class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">
                             Nobody but us chickens!</td>
                     </tr>
                 @endif
                 @foreach ($reviews as $review)
                     <tr>
-                        <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">{{ $review['name'] }}</td>
-                        <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">{{ $review['taste'] }}</td>
-                        <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">{{ $review['atmosphere'] }}</td>
-                        <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">{{ number_format($review['price']) }}</td>
-                        <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">{{ $review['service'] }}</td>
-                        <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">{{ $review['cleanliness'] }}</td>
-                        <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">{{ $review['comments'] }}</td>
-                        <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">{{ $review['goals'] }}</td>
-                        <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">{{ $review['date'] }}</td>
+                        <td
+                            class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">
+                            {{ $review['name'] }}</td>
+                        <td
+                            class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">
+                            {{ $review['taste'] }}</td>
+                        <td
+                            class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">
+                            {{ $review['atmosphere'] }}</td>
+                        <td
+                            class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">
+                            {{ number_format($review['price']) }}</td>
+                        <td
+                            class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">
+                            {{ $review['service'] }}</td>
+                        <td
+                            class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">
+                            {{ $review['cleanliness'] }}</td>
+                        <td
+                            class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">
+                            {{ $review['comments'] }}</td>
+                        <td
+                            class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">
+                            {{ $review['goals'] }}</td>
+                        <td
+                            class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">
+                            {{ $review['date'] }}</td>
                     </tr>
                 @endforeach
             </table>
