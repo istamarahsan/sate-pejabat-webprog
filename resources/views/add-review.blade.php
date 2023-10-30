@@ -1,8 +1,8 @@
 @extends('layouts.guest')
 
 @section('content')
-    <div class="flex flex-col items-center h-screen justify-center">
-        <form action="{{ route('review') }}" method="POST" class="flex flex-col items-stretch max-w-lg">
+    <div class="flex flex-col items-center justify-center my-10">
+        <form action="{{ route('review') }}" method="POST" class="flex flex-col items-stretch max-w-lg gap-5">
             @csrf
 
             <h1 class="text-3xl font-black flex flex-grow w-full items-baseline mb-4">Make a Review</h1>

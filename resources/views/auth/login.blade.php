@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 
 @section('content')
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    {{-- <x-auth-session-status class="mb-4" :status="session('status')" /> --}}
 
     <div class="flex flex-row items-center h-screen">
 

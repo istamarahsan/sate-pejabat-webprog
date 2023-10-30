@@ -18,22 +18,19 @@
             TEST
         </button>
         <div class="text-zinc-500 font-bold flex items-center">
-            <a href="{{ route('admin.dashboard') }}">
+            {{-- <a href="{{ route('admin.dashboard') }}">
                 <button class="ml-3 rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
                     Dashboard
                 </button>
             </a>
-            {{-- <button class="ml-2 rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
-                Manage
-            </button> --}}
             <a href="{{ route('admin.reviews.index') }}">
                 <button class="ml-2 rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
                     Reviews
                 </button>
-            </a>
+            </a> --}}
         </div>
         <button class="ml-auto text-white font-normal text-sm rounded-lg transition-colors duration-200 hover:bg-zinc-800 px-2 py-1">
-            Welcome, {{ 'X' }}{{ auth()->user()->id }}
+            Welcome, {{ 'S' }}{{ auth()->user()->id }}
         </button>
         <form action="{{ route('auth.logout') }}" method="POST">
             @csrf

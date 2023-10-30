@@ -1,5 +1,5 @@
 <?php
- 
+
 namespace App\Http\Controllers;
 
 use Closure;
@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 class UserId implements ValidationRule
 {
-    public function validate(string $attribute, mixed $value, Closure $fail): void {
+    public function validate(string $attribute, mixed $value, Closure $fail): void
+    {
         if (strlen($value) < 2 || !(strpos($value, 'X') == 0 || strpos($value, 'S') == 0)) {
             $fail('uhoh');
         }
@@ -20,7 +21,8 @@ class UserId implements ValidationRule
 
 class LoginController extends Controller
 {
-    public function get() {
+    public function get()
+    {
         return view('auth.login');
     }
 
@@ -36,29 +38,33 @@ class LoginController extends Controller
 
         $parsedCredentials = $this->parseCredentials($credentials);
 
-        if (Auth::attempt([
-            'id' => $parsedCredentials['id'],
-            'password' => $parsedCredentials['password']
-        ])) {
+        if (
+            Auth::attempt([
+                'id' => $parsedCredentials['id'],
+                'password' => $parsedCredentials['password']
+            ])
+        ) {
             $request->session()->regenerate();
- 
+
             return redirect()->intended('/');
         }
- 
+
         return back();
     }
 
-    public function logout(Request $request) {
+    public function logout(Request $request)
+    {
         Auth::logout();
- 
+
         $request->session()->invalidate();
-     
+
         $request->session()->regenerateToken();
 
-        return redirect("/");
+        return redirect("/admin");
     }
 
-    private function parseCredentials($credentials) {
+    private function parseCredentials($credentials)
+    {
         $type = null;
         if (substr($credentials['userId'], 0, 1) == 'X') {
             $type = 'admin';
@@ -68,10 +74,10 @@ class LoginController extends Controller
         }
         $id = intval(substr($credentials['userId'], 1));
         return
-        [
-            'id' => $id,
-            'type' => $type,
-            'password' => $credentials['password']
-        ];
+            [
+                'id' => $id,
+                'type' => $type,
+                'password' => $credentials['password']
+            ];
     }
 }

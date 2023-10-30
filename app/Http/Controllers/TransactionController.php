@@ -32,9 +32,12 @@ class TransactionController extends Controller
 
     public function staffCreate(Request $request)
     {
+        $success = $request->get("success") == 1;
+
         $products = $this->productService->getAllProducts();
         return view("staff.add-transaction", [
             "products" => $products,
+            "success" => $success,
         ]);
     }
     public function staffStore(Request $request)
@@ -45,6 +48,7 @@ class TransactionController extends Controller
             ->mapWithKeys(fn($val, $key) => [explode("-", $key)[1] => $val])
             ->toArray();
         $result = $this->transactionService->recordTransaction($userId, $quantities);
-        return redirect()->route("staff.createtransaction");
+
+        return redirect()->route("staff.createtransaction", ["success" => true]);
     }
 }
