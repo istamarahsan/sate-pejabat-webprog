@@ -23,6 +23,7 @@
     "dependencies": {
         "@fontsource/lexend": "^5.0.13",
         "@material-tailwind/html": "^2.0.0",
+        "chart.js": "^4.4.0",
         "flowbite": "^1.8.1"
     }
 }
