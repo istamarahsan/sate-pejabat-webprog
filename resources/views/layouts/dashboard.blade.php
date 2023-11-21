@@ -21,7 +21,7 @@
                 </a>
             </div>
         </div>
-        <div>
+        <div class="w-full">
             @yield('child-content')
         </div>
     </div>

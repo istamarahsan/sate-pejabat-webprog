@@ -12,20 +12,65 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
+        /*
+        $table->id();
+            $table->string("name");
+            $table->double("price");
+            $table->enum("category", ["FOOD", "BEVERAGE", "SNACK", "OTHER"]);
+        */
         DB::table("products")->insert([
             [
-                "name" => "Product 1",
-                "price" => 69421,
+                "id" => 10,
+                "name" => "Sate Sapi",
+                "price" => 50,
                 "category" => "FOOD",
             ],
             [
-                "name" => "Product 2",
-                "price" => 69422,
+                "id" => 11,
+                "name" => "Sate Kambing",
+                "price" => 70,
+                "category" => "FOOD",
+            ],
+            [
+                "id" => 13,
+                "name" => "Sate ayam",
+                "price" => 40,
+                "category" => "FOOD",
+            ],
+            [
+                "id" => 14,
+                "name" => "Limun asem",
+                "price" => 10,
                 "category" => "BEVERAGE",
             ],
             [
-                "name" => "Product 3",
-                "price" => 69423,
+                "id" => 15,
+                "name" => "Apple Tea",
+                "price" => 10,
+                "category" => "BEVERAGE",
+            ],
+            [
+                "id" => 16,
+                "name" => "Milshake green tea",
+                "price" => 15,
+                "category" => "BEVERAGE",
+            ],
+            [
+                "id" => 17,
+                "name" => "Ice cream",
+                "price" => 15,
+                "category" => "SNACK",
+            ],
+            [
+                "id" => 18,
+                "name" => "Ice Cendol",
+                "price" => 20,
+                "category" => "SNACK",
+            ],
+            [
+                "id" => 19,
+                "name" => "Sup durian",
+                "price" => 20,
                 "category" => "OTHER",
             ],
         ]);

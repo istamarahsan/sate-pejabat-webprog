@@ -6,9 +6,7 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
-                'resources/js/app.js',
-                'resources/css/flowbite.min.css',
-                'resources/js/flowbite.min.js',
+                'resources/js/app.js'
             ],
             refresh: true,
         }),

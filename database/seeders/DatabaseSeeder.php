@@ -16,5 +16,10 @@ class DatabaseSeeder extends Seeder
         $this->call(RootAdminSeeder::class);
         $this->call(DebugSeeder::class);
         $this->call(ProductSeeder::class);
+        $this->call(StaffSeeder::class);
+        $this->call(StaffRoleSeeder::class);
+        $this->call(ReviewSeeder::class);
+        $this->call(TransactionSeeder::class);
+        $this->call(TransactionDetailsSeeder::class);
     }
 }
