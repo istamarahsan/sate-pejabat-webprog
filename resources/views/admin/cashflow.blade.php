@@ -8,16 +8,39 @@
                 <a role="tab" :class="`tab ${by === 'category' ? 'tab-active' : ''}`" @click="by = 'category'">By Category</a>
                 <a role="tab" :class="`tab ${by === 'day' ? 'tab-active' : ''}`" @click="by = 'day'">By Day</a>
             </div>
+            <div class="">
+                <label class="label cursor-pointer gap-5">
+                    <span class="label-text text-lg">Specific Timeframe</span> 
+                    <template x-if="!timeframe">
+                        <input type="checkbox" class="rounded-md p-2" @change="timeframe = true" />
+                    </template>
+                    <template x-if="timeframe">
+                        <input type="checkbox" class="rounded-md p-2" @change="timeframe = false" checked />
+                    </template>
+                </label>
+            </div>
             <div class="flex items-center" id="cashflow-daterange-picker">
-                <input x-model="from" id="cashflow-daterange-picker-from" name="from" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Select date start">
+                <template x-if="timeframe">
+                    <input x-model="from" id="cashflow-daterange-picker-from" name="from" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Select date start">
+                </template>
+                <template x-if="!timeframe">
+                    <input disabled id="cashflow-daterange-picker-from" name="from" type="date" class="bg-gray-500 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Select date start">
+                </template>
+                
                 <span class="mx-4 text-gray-500">to</span>
-                <input :min="from" x-model="until" id="cashflow-daterange-picker-to" name="until" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Select date end">
+
+                <template x-if="timeframe">
+                    <input :min="from" x-model="until" id="cashflow-daterange-picker-to" name="until" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Select date end">
+                </template>
+                <template x-if="!timeframe">
+                    <input disabled :min="from" id="cashflow-daterange-picker-to" name="until" type="date" class="bg-gray-500 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Select date end">
+                </template>
             </div>
             <div class="w-full h-[64px] flex justify-center items-stretch">
-                <template x-if="!(loading || salesChartLoading || revenueChartLoading) && from !== null && until !== null">
+                <template x-if="!(loading || salesChartLoading || revenueChartLoading) && ((from !== null && until !== null) || !timeframe)">
                     <button @click="search()" class="btn btn-primary w-full">Search</button>
                 </template>
-                <template x-if="!(loading || salesChartLoading || revenueChartLoading) && (from === null || until === null)">
+                <template x-if="!(loading || salesChartLoading || revenueChartLoading) && ((from === null || until === null) && timeframe)">
                     <button disabled class="btn btn-primary w-full">Search</button>
                 </template>
                 <template x-if="loading || salesChartLoading || revenueChartLoading">
@@ -25,7 +48,7 @@
                 </template>
             </div>
         </div>
-        <div class="w-full grid grid-cols-1 xl:grid-cols-2 place-content-stretch     place-items-stretch">
+        <div class="max-w-3xl w-full grid grid-cols-1 place-content-stretch place-items-stretch">
             <div class="p-5">
                 <canvas class="w-full h-full" id="cashflow-chart-sales"></canvas>
             </div>
@@ -42,12 +65,15 @@
                 salesChartLoading: false,
                 revenueChartLoading: false,
                 by: 'category',
-                from: new Date().toISOString().slice(0, 10),
-                until: new Date().toISOString().slice(0, 10),
+                timeframe: false,
+                from: null,
+                until: null,
                 cashflowData: null,
                 activeChartSales: null,
                 activeChartRevenue: null,
                 init() {
+                    this.by = 'category'
+                    this.from = new Date().toISOString().slice(0, 10)
                     this.$watch('from', () => {
                         this.until = this.until ?? this.from
                         this.until = this.until > this.from ? this.until : this.from
@@ -76,6 +102,34 @@
                             options: {
                                 animation: {
                                     onComplete: () => this.salesChartLoading = false
+                                },
+                                plugins: {
+                                    legend: {
+                                        labels: {
+                                            font: {
+                                                size: 16
+                                            }
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    x: {
+                                        title: {
+                                            display: true,
+                                            text: this.by === 'category' ? 'Category' : 'Date',
+                                            font: {
+                                                size: 16
+                                            }                                        }
+                                    },
+                                    y: {
+                                        title: {
+                                            display: true,
+                                            text: 'Number of Sales',
+                                            font: {
+                                                size: 16
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         })
@@ -89,6 +143,34 @@
                             options: {
                                 animation: {
                                     onComplete: () => this.revenueChartLoading = false
+                                },
+                                plugins: {
+                                    legend: {
+                                        labels: {
+                                            font: {
+                                                size: 16
+                                            }
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    x: {
+                                        title: {
+                                            display: true,
+                                            text: this.by === 'category' ? 'Category' : 'Date',
+                                            font: {
+                                                size: 16
+                                            }                                        }
+                                    },
+                                    y: {
+                                        title: {
+                                            display: true,
+                                            text: 'Total Sale (IDR)',
+                                            font: {
+                                                size: 16
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         })
@@ -96,11 +178,14 @@
                 },
                 search() {
                     this.loading = true
-                    const params = new URLSearchParams({
-                        type: this.by,
+                    const baseParams = {
+                        type: this.by
+                    }
+                    const params = new URLSearchParams(this.timeframe ? {
+                        ...baseParams,
                         from: this.from,
                         until: this.until
-                    })
+                    } : baseParams)
                     axios.get(`/admin/api/cashflow?${params}`)
                         .then((response) => {
                             this.cashflowData = {
