@@ -27,7 +27,7 @@ class ReviewSeeder extends Seeder
 
         DB::table("reviews")->insert([
             [
-                'date' => '04-04-2019',
+                'date' => '2019-04-04',
                 'reviewer_name' => 'MIta',
                 'score_taste' => 80,
                 'score_atmosphere' => 85,
@@ -38,7 +38,7 @@ class ReviewSeeder extends Seeder
                 'reviewer_goals' => 'want to try sate ayam again',
             ],
             [
-                'date' => '04-04-2019',
+                'date' => '2019-04-04',
                 'reviewer_name' => 'Bony',
                 'score_taste' => 90,
                 'score_atmosphere' => 78,
@@ -49,7 +49,7 @@ class ReviewSeeder extends Seeder
                 'reviewer_goals' => 'Try ice cream',
             ],
             [
-                'date' => '05-04-2019',
+                'date' => '2019-04-05',
                 'reviewer_name' => 'Willy',
                 'score_taste' => 87,
                 'score_atmosphere' => 95,
