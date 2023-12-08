@@ -47,5 +47,27 @@ class StaffSeeder extends Seeder
                 'role_id' => 4444,
             ],
         ]);
+        DB::table("users")->insert([
+            [
+                'id' => 1100,
+                'password' => 'S1100',
+                'user_type' => 'staff'
+            ],
+            [
+                'id' => 2200,
+                'password' => 'S2200',
+                'user_type' => 'staff'
+            ],
+            [
+                'id' => 3300,
+                'password' => 'S3300',
+                'user_type' => 'staff'
+            ],
+            [
+                'id' => 4400,
+                'password' => 'S4400',
+                'user_type' => 'staff'
+            ]
+        ]);
     }
 }
