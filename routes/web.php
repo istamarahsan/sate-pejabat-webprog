@@ -1,15 +1,12 @@
 <?php
 
-use App\Http\Controllers\AddReviewController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ReviewsController;
-use App\Http\Controllers\AddStaffController;
 use App\Http\Controllers\CashflowController;
-use App\Http\Controllers\EditStaffController;
-use App\Http\Controllers\ManageStaffController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TransactionController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -91,6 +88,19 @@ Route::middleware("auth.staff")
 Route::prefix("review")
     ->name("review")
     ->group(function () {
-        Route::get("/", [ReviewsController::class, "create"]);
+        Route::get("/", function() {
+            if (!Auth::check()) {
+                return (new ReviewsController())->create();
+            }
+            $user = Auth::user();
+            switch ($user->user_type) {
+                case 'admin':
+                    return redirect()->route('admin.dashboard');
+                case 'staff':
+                    return redirect()->route('staff.home');
+                default:
+                    return response('Not Found', 404);
+            }
+        });
         Route::post("/", [ReviewsController::class, "store"]);
     });

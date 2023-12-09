@@ -61,7 +61,7 @@
                             <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400" x-text="formatInteger.format(getProductData(itemProductId).price)"></td>
                             <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400" x-text="formatInteger.format(getProductData(itemProductId).price * items[itemProductId])"></td>
                             <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">
-                                <input class="input input-bordered w-20 text-center" :value="1" :name="`item-${itemProductId}`" :id="`item-${itemProductId}`" type="number" @input="items[itemProductId] = $el.value" required />
+                                <input class="input input-bordered w-20 text-center" min="1" value="1" :name="`item-${itemProductId}`" :id="`item-${itemProductId}`" type="number" @input="items[itemProductId] = $el.value" required />
                             </td>
                             <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400">
                                 <button type="button" @click="delete items[itemProductId]" class="btn btn-sm btn-warning">
@@ -70,6 +70,13 @@
                             </td>
                         </tr>
                     </template>
+                    <tr>
+                        <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400"></td>
+                        <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400"></td>
+                        <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400" x-text="formatInteger.format(getTotalPrice())"></td>
+                        <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400 text-center" x-text="getTotalQuantity()"></td>
+                        <td class="px-4 py-2 border border-zinc-600 border-x-0 bg-zinc-900 text-zinc-400"></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -125,6 +132,15 @@
                 },
                 getProductData(id) {
                     return productsData[id]
+                },
+                getTotalPrice() {
+                    return Object.entries(this.items)
+                        .map(([productId, quantity]) => productsData[productId].price * quantity)
+                        .reduce((sum, next) => sum + next, 0)
+                },
+                getTotalQuantity() {
+                    return Object.values(this.items)
+                        .reduce((sum, next) => sum + parseInt(next), 0)
                 }
             }))
         })
