@@ -9,7 +9,7 @@
     @livewireStyles
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/flowbite.min.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="min-h-screen min-w-screen flex flex-col p-5">
